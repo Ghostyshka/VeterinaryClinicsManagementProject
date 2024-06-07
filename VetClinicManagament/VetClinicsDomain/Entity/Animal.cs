@@ -13,4 +13,6 @@ public class Animal
     public bool Vaccination { get; set; }
     public string VaccineType { get; set; }
     public double Weight { get; set; }
+
+    public ICollection<UserAnimal> UserAnimals { get; set; } = new List<UserAnimal>();
 }
