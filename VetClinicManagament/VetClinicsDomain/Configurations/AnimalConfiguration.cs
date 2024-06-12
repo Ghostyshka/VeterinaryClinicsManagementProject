@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using VetClinicsDomain.Entity;
+using VetClinic.Domain.Entity;
 
 namespace VetClinic.Domain.Configurations;
 

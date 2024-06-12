@@ -1,4 +1,4 @@
-﻿namespace VetClinicsDomain.Entity;
+﻿namespace VetClinic.Domain.Entity;
 
 public class UserAnimal
 {
