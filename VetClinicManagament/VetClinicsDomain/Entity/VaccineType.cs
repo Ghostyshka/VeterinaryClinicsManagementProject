@@ -1,6 +1,6 @@
 ﻿namespace VetClinic.Domain.Entity;
 
-internal class VaccineType
+public class VaccineType
 {
     public int VaccineTypeId { get; set; }
     public string LiveAttenuated { get; set; }
