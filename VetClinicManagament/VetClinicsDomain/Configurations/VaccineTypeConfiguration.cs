@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 using VetClinic.Domain.Entity;
 
 namespace VetClinic.Domain.Configurations;
@@ -41,5 +40,10 @@ internal class VaccineTypeConfiguration : IEntityTypeConfiguration<VaccineType>
         builder.Property(vt => vt.Vector)
             .HasMaxLength(100)
             .IsRequired();
+
+        builder.HasMany(vt => vt.Vaccines)
+            .WithOne(v => v.VaccineType)
+            .HasForeignKey(v => v.VaccineTypeId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

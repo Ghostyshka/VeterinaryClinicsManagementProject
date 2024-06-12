@@ -14,15 +14,16 @@ internal class VaccineConfiguration : IEntityTypeConfiguration<Vaccine>
             .HasMaxLength(128)
             .IsRequired();
 
-        builder.Property(v => v.VaccineType)
+        builder.Property(v => v.Manufacturer)
             .HasMaxLength(128)
             .IsRequired();
 
-        builder.Property(v => v.Manufacturer)
-            .HasMaxLength(128)
-            .IsRequired();       
-        
         builder.Property(v => v.ExpiryDate)
             .IsRequired();
+
+        builder.HasOne(v => v.VaccineType)
+            .WithMany(vt => vt.Vaccines)
+            .HasForeignKey(v => v.VaccineTypeId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

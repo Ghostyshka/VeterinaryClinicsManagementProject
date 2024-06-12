@@ -3,6 +3,7 @@
 public class VaccineType
 {
     public int VaccineTypeId { get; set; }
+
     public string LiveAttenuated { get; set; }
     public string Inactivated { get; set; }
     public string Toxoid { get; set; }
@@ -13,4 +14,6 @@ public class VaccineType
     public string Adjuvanted { get; set; }
     public string Multivalent { get; set; }
     public string Vector { get; set; }
+
+    public ICollection<Vaccine> Vaccines { get; set; }
 }
