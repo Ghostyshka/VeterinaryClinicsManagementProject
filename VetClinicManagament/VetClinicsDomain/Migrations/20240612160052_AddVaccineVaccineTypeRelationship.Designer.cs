@@ -80,7 +80,7 @@ namespace VetClinic.Domain.Migrations
                     b.ToTable("Animals");
                 });
 
-            modelBuilder.Entity("VetClinic.Domain.Entity.User", b =>
+            modelBuilder.Entity("VetClinic.Domain.Entity.UserModel", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -254,7 +254,7 @@ namespace VetClinic.Domain.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VetClinic.Domain.Entity.User", "User")
+                    b.HasOne("VetClinic.Domain.Entity.UserModel", "UserModel")
                         .WithMany("UserAnimals")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -262,7 +262,7 @@ namespace VetClinic.Domain.Migrations
 
                     b.Navigation("Animal");
 
-                    b.Navigation("User");
+                    b.Navigation("UserModel");
                 });
 
             modelBuilder.Entity("VetClinic.Domain.Entity.Vaccine", b =>
@@ -281,7 +281,7 @@ namespace VetClinic.Domain.Migrations
                     b.Navigation("UserAnimals");
                 });
 
-            modelBuilder.Entity("VetClinic.Domain.Entity.User", b =>
+            modelBuilder.Entity("VetClinic.Domain.Entity.UserModel", b =>
                 {
                     b.Navigation("UserAnimals");
                 });
