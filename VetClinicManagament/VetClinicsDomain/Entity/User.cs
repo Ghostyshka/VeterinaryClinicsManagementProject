@@ -9,7 +9,6 @@ public class User
     public int UserId { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
-    public string Username {  get; set; } = string.Empty;
     public DateTime DateOfBirth { get; set; } // TO DO: implement happy birthday notifications
 
     public UserRole UserRole
