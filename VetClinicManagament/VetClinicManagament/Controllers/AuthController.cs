@@ -13,9 +13,9 @@ public class AuthController : BaseController
     private readonly IUserRepository _userRepository;
 
     public AuthController(
-        ILogger<AuthController> logger, 
         IUserRepository userRepository,
-        IConfiguration configuration
+        IConfiguration configuration,
+        ILogger<AuthController> logger
         ) : base(configuration, logger)
     {
         _userRepository = userRepository;
