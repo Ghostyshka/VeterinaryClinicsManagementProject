@@ -1,14 +1,17 @@
-﻿using System.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace VetClinic.Core.Repositories.Base;
 
-public abstract class BaseRepository
+public abstract class BaseController : Controller
 {
-    protected IDbTransaction Transaction { get; private set; }
-    protected IDbConnection Connection { get { return Transaction.Connection; } }
+    protected readonly IConfiguration _configuration;
+    protected readonly ILogger _logger;
 
-    public BaseRepository(IDbTransaction transaction)
+    protected BaseController(IConfiguration configuration, ILogger logger)
     {
-        Transaction = transaction;
+        _configuration = configuration;
+        _logger = logger;
     }
 }
