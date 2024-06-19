@@ -9,7 +9,7 @@ public class UserModel
     public int UserId { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
-    public string Username => $"{FirstName} {LastName}";
+    public string Username {  get => $"{FirstName} {LastName}"; set { } }
     public DateTime DateOfBirth { get; set; } // TO DO: implement happy birthday notifications
 
     public UserRole UserRole
