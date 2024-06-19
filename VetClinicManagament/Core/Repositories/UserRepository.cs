@@ -1,50 +1,63 @@
-﻿using Dapper;
-using System.Data;
+﻿using Microsoft.EntityFrameworkCore;
 using VetClinic.Core.IRepository;
-using VetClinic.Core.Repositories.Base;
+using VetClinic.Domain.Data;
+using VetClinic.Domain.Entity;
 using VetClinic.Domain.Models;
 using VetClinic.Domain.Models.Dtos;
 
+
 namespace VetClinic.Core.Repositories;
 
-public class UserRepository : BaseRepository, IUserRepository
+public class UserRepository : IUserRepository
 {
-    public UserRepository(IDbTransaction transaction)
-        : base(transaction)
+    private readonly DataContext _dataContext;
+
+    public UserRepository(DataContext dataContext)
     {
+        _dataContext = dataContext;
     }
 
     public async Task<int> AddUserAsync(UserDto newUser)
     {
-        return await Connection.ExecuteScalarAsync<int>(
-            @"INSERT INTO [Users](FirstName, LastName, Username, DateOfBirth, UserRole, Email, PhoneNumber, Password, CreatedAt)
-                  VALUES (@FirstName, @LastName, @Username, @DateOfBirth, @UserRole, @Email, @PhoneNumber, @Password, @CreatedAt);
-                  SELECT CAST(SCOPE_IDENTITY() as int);",
-            param: new
-            {
-                newUser.FirstName,
-                newUser.LastName,
-                newUser.Username,
-                newUser.DateOfBirth,
-                newUser.UserRole,
-                newUser.Email,
-                newUser.PhoneNumber,
-                newUser.Password,
-                newUser.CreatedAt
-            },
-            transaction: Transaction
-        );
+        var user = new User
+        {
+            FirstName = newUser.FirstName,
+            LastName = newUser.LastName,
+            Username = newUser.Username,
+            DateOfBirth = newUser.DateOfBirth,
+            UserRole = newUser.UserRole,
+            Email = newUser.Email,
+            PhoneNumber = newUser.PhoneNumber,
+            Password = newUser.Password,
+            CreatedAt = newUser.CreatedAt
+        };
+
+        _dataContext.Users.Add(user);
+        await _dataContext.SaveChangesAsync();
+
+        return user.UserId;
     }
+
 
     public async Task<UserModel> GetUserByUsernameAsync(string userName)
     {
-        var user = await Connection.QueryFirstOrDefaultAsync<UserModel>(
-            @"SELECT Password AS PasswordHash, UserName, UserId  FROM [Users] WHERE UserName = @Username",
-            param: new { Username = userName },
-            transaction: Transaction
-        );
+        var user = await _dataContext.Users
+            .Where(u => u.Username == userName)
+            .Select(u => new UserModel
+            {
+                PasswordHash = u.Password,
+                Username = u.Username,
+                UserId = u.UserId
+            })
+            .FirstOrDefaultAsync();
 
         return user;
     }
 
+
+
+    public void Dispose()
+    {
+        _dataContext?.Dispose();
+    }
 }
