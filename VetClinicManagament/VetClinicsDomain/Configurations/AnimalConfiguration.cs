@@ -29,10 +29,6 @@ internal class AnimalConfiguration : IEntityTypeConfiguration<Animal>
             .HasMaxLength(128)
             .IsRequired();
 
-        builder.Property(a => a.Gender)
-            .HasMaxLength(10)
-            .IsRequired();
-
         builder.Property(a => a.Health)
             .IsRequired();
 
