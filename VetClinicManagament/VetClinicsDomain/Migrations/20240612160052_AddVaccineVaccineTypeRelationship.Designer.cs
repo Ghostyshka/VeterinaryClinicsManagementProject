@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VetClinic.Domain.Data;
@@ -11,9 +12,11 @@ using VetClinic.Domain.Data;
 namespace VetClinic.Domain.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240612160052_AddVaccineVaccineTypeRelationship")]
+    partial class AddVaccineVaccineTypeRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,9 +36,6 @@ namespace VetClinic.Domain.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("integer");
 
-                    b.Property<int>("AnimalGender")
-                        .HasColumnType("integer");
-
                     b.Property<string>("AnimalName")
                         .IsRequired()
                         .HasMaxLength(128)
@@ -50,6 +50,11 @@ namespace VetClinic.Domain.Migrations
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
 
                     b.Property<bool>("Health")
                         .HasColumnType("boolean");
@@ -75,7 +80,7 @@ namespace VetClinic.Domain.Migrations
                     b.ToTable("Animals");
                 });
 
-            modelBuilder.Entity("VetClinic.Domain.Entity.User", b =>
+            modelBuilder.Entity("VetClinic.Domain.Entity.UserModel", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -87,7 +92,7 @@ namespace VetClinic.Domain.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("Date");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -115,10 +120,6 @@ namespace VetClinic.Domain.Migrations
 
                     b.Property<int>("UserRole")
                         .HasColumnType("integer");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.HasKey("UserId");
 
@@ -253,7 +254,7 @@ namespace VetClinic.Domain.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VetClinic.Domain.Entity.User", "User")
+                    b.HasOne("VetClinic.Domain.Entity.UserModel", "UserModel")
                         .WithMany("UserAnimals")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -261,7 +262,7 @@ namespace VetClinic.Domain.Migrations
 
                     b.Navigation("Animal");
 
-                    b.Navigation("User");
+                    b.Navigation("UserModel");
                 });
 
             modelBuilder.Entity("VetClinic.Domain.Entity.Vaccine", b =>
@@ -280,7 +281,7 @@ namespace VetClinic.Domain.Migrations
                     b.Navigation("UserAnimals");
                 });
 
-            modelBuilder.Entity("VetClinic.Domain.Entity.User", b =>
+            modelBuilder.Entity("VetClinic.Domain.Entity.UserModel", b =>
                 {
                     b.Navigation("UserAnimals");
                 });

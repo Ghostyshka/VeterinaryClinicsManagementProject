@@ -1,14 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VetClinicsDomain.Entity;
+using VetClinic.Domain.Entity;
 
-namespace VetClinicsDomain.Data;
+
+namespace VetClinic.Domain.Data;
 
 public class DataContext : DbContext
 {
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
-        
+    }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataContext).Assembly);
     }
 
-    public DbSet<User> User { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Animal> Animals { get; set; }
+    public DbSet<UserAnimal> UserAnimals { get; set; }
+    public DbSet<Vaccine> Vaccine { get; set; }
+    public DbSet<VaccineType> VaccinesType { get; set; }
 }

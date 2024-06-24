@@ -1,16 +1,15 @@
 ﻿using VetClinic.Domain.Enum;
 
-namespace VetClinic.Domain.Entity;
+namespace VetClinic.Domain.Models;
 
-public class User
+public class UserModel
 {
     private UserRole _userRole;
 
     public int UserId { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
-    public string Username { get => $"{FirstName} {LastName}"; set { } }
-
+    public string Username {  get => $"{FirstName} {LastName}"; set { } }
     public DateTime DateOfBirth { get; set; } // TO DO: implement happy birthday notifications
 
     public UserRole UserRole
@@ -28,8 +27,6 @@ public class User
 
     public string Email { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
-    public string Password { get; set; } = string.Empty;
+    public string PasswordHash { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; }
-
-    public ICollection<UserAnimal> UserAnimals { get; set; } = new List<UserAnimal>();
 }

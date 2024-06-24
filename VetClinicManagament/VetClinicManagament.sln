@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VetClinicManagament.Api", "VetClinicManagament\VetClinicManagament.Api.csproj", "{14BF8F90-CF4E-4403-AD04-AF008CF05AEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VetClinic.Api", "VetClinicManagament\VetClinic.Api.csproj", "{14BF8F90-CF4E-4403-AD04-AF008CF05AEF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VetClinic.Domain", "VetClinicsDomain\VetClinic.Domain.csproj", "{96FA1EB3-3D10-4DB3-B480-84B661D0257B}"
 EndProject

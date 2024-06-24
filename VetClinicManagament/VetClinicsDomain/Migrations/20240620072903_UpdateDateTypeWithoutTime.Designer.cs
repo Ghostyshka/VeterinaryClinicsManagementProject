@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VetClinic.Domain.Data;
@@ -11,9 +12,11 @@ using VetClinic.Domain.Data;
 namespace VetClinic.Domain.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240620072903_UpdateDateTypeWithoutTime")]
+    partial class UpdateDateTypeWithoutTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,9 +36,6 @@ namespace VetClinic.Domain.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("integer");
 
-                    b.Property<int>("AnimalGender")
-                        .HasColumnType("integer");
-
                     b.Property<string>("AnimalName")
                         .IsRequired()
                         .HasMaxLength(128)
@@ -50,6 +50,11 @@ namespace VetClinic.Domain.Migrations
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
 
                     b.Property<bool>("Health")
                         .HasColumnType("boolean");
