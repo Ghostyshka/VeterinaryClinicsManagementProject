@@ -30,6 +30,7 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
             .IsRequired();
 
         builder.Property(u => u.DateOfBirth)
+            .HasColumnType("Date")
             .IsRequired();
 
         builder.Property(u => u.CreatedAt)
