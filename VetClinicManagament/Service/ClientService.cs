@@ -60,16 +60,16 @@ public class ClientService : IClientService
     {
         var vaccineType = new VaccineType
         {
-            LiveAttenuated = addVaccinationDto.VaccineType.LiveAttenuated,
-            Inactivated = addVaccinationDto.VaccineType.Inactivated,
-            Toxoid = addVaccinationDto.VaccineType.Toxoid,
-            Subunit = addVaccinationDto.VaccineType.Subunit,
-            Recombinant = addVaccinationDto.VaccineType.Recombinant,
-            Conjugate = addVaccinationDto.VaccineType.Conjugate,
-            DNARNA = addVaccinationDto.VaccineType.DNARNA,
-            Adjuvanted = addVaccinationDto.VaccineType.Adjuvanted,
-            Multivalent = addVaccinationDto.VaccineType.Multivalent,
-            Vector = addVaccinationDto.VaccineType.Vector,
+            LiveAttenuated = addVaccinationDto.Vaccine.VaccineType.LiveAttenuated,
+            Inactivated = addVaccinationDto.Vaccine.VaccineType.Inactivated,
+            Toxoid = addVaccinationDto.Vaccine.VaccineType.Toxoid,
+            Subunit = addVaccinationDto.Vaccine.VaccineType.Subunit,
+            Recombinant = addVaccinationDto.Vaccine.VaccineType.Recombinant,
+            Conjugate = addVaccinationDto.Vaccine.VaccineType.Conjugate,
+            DNARNA = addVaccinationDto.Vaccine.VaccineType.DNARNA,
+            Adjuvanted = addVaccinationDto.Vaccine.VaccineType.Adjuvanted,
+            Multivalent = addVaccinationDto.Vaccine.VaccineType.Multivalent,
+            Vector = addVaccinationDto.Vaccine.VaccineType.Vector,
         };
 
         var vaccine = new Vaccine
