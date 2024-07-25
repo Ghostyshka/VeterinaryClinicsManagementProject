@@ -1,11 +1,14 @@
-using VetClinic.Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using VetClinic.Core.IRepository;
-using VetClinic.Core.Repositories;
+using Service;
+using Persistence.Data;
+using Domain.Repositories;
+using Persistence.Repositories;
+using Contracts;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -59,7 +62,16 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Repositories
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
+
+// Services
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IMailService, MailService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

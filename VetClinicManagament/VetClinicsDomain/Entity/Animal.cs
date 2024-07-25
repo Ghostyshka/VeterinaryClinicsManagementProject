@@ -26,7 +26,7 @@ public class Animal
         }
     }
 
-    public bool Health { get; set; }
+    public bool IsLive { get; set; }
     public bool Vaccination { get; set; }
     public string VaccineType { get; set; }
     public double Weight { get; set; }

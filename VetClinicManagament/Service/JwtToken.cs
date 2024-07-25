@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Domain.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using VetClinic.Domain.Models;
 
-namespace VetClinic.Core.Services;
+namespace Service;
 
 public class JwtToken
 {
@@ -19,7 +19,7 @@ public class JwtToken
         List<Claim> claims =
         [
             new("UserId", user.UserId.ToString()),
-            new("UserName", user.Username)
+            new("UserName", user.FirstName)
         ];
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(

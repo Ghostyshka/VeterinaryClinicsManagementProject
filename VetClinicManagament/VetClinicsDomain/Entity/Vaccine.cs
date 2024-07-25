@@ -9,4 +9,7 @@ public class Vaccine
 
     public int VaccineTypeId { get; set; }
     public VaccineType VaccineType { get; set; }
+
+    public int AnimalId { get; set; }
+    public Animal Animal { get; set; }
 }

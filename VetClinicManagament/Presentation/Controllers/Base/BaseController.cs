@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
-namespace VetClinic.Api.Controllers.BaseController;
+namespace Presentation.Controllers.Base;
 
 public abstract class BaseController : ControllerBase
 {

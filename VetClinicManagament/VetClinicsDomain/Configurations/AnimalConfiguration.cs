@@ -29,7 +29,7 @@ internal class AnimalConfiguration : IEntityTypeConfiguration<Animal>
             .HasMaxLength(128)
             .IsRequired();
 
-        builder.Property(a => a.Health)
+        builder.Property(a => a.IsLive)
             .IsRequired();
 
         builder.Property(a => a.Vaccination)

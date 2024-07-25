@@ -51,7 +51,7 @@ namespace VetClinic.Domain.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
 
-                    b.Property<bool>("Health")
+                    b.Property<bool>("IsLive")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Species")
@@ -159,6 +159,9 @@ namespace VetClinic.Domain.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("VaccineId"));
 
+                    b.Property<int>("AnimalId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -176,6 +179,8 @@ namespace VetClinic.Domain.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("VaccineId");
+
+                    b.HasIndex("AnimalId");
 
                     b.HasIndex("VaccineTypeId");
 
@@ -266,11 +271,19 @@ namespace VetClinic.Domain.Migrations
 
             modelBuilder.Entity("VetClinic.Domain.Entity.Vaccine", b =>
                 {
+                    b.HasOne("VetClinic.Domain.Entity.Animal", "Animal")
+                        .WithMany()
+                        .HasForeignKey("AnimalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("VetClinic.Domain.Entity.VaccineType", "VaccineType")
                         .WithMany("Vaccines")
                         .HasForeignKey("VaccineTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Animal");
 
                     b.Navigation("VaccineType");
                 });
