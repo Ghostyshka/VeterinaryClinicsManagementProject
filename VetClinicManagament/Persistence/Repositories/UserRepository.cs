@@ -33,17 +33,17 @@ public class UserRepository : IUserRepository
         return user.UserId;
     }
 
-    public async Task<IActionResult> DeleteUserAsync(int userId)
+    public async Task<bool> DeleteUserAsync(int userId)
     {
         var user = await _dataContext.Users.FindAsync(userId);
         if (user == null)
         {
-            return new NotFoundResult();
+            return false;
         }
 
         _dataContext.Users.Remove(user);
         await _dataContext.SaveChangesAsync();
-        return new NoContentResult();
+        return true;
     }
 
     public async Task<UserModel> GetUserByEmailAsync(string email)
@@ -73,12 +73,12 @@ public class UserRepository : IUserRepository
         return await _dataContext.Users.FindAsync(userId);
     }
 
-    public async Task<IActionResult> UpdateUserAsync(int userId, UserDto updatedUser)
+    public async Task<bool> UpdateUserAsync(int userId, UserDto updatedUser)
     {
         var user = await _dataContext.Users.FindAsync(userId);
         if (user == null)
         {
-            return new NotFoundResult();
+            return false;
         }
 
         user.FirstName = updatedUser.FirstName;
@@ -89,6 +89,6 @@ public class UserRepository : IUserRepository
 
         _dataContext.Users.Update(user);
         await _dataContext.SaveChangesAsync();
-        return new NoContentResult();
+        return true;
     }
 }

@@ -10,6 +10,6 @@ public interface IUserRepository
     Task<int> AddUserAsync(UserRegistrationDto newUser);
     Task<UserModel> GetUserByEmailAsync(string email);
     Task<User> GetUserByIdAsync(int userId);
-    Task<IActionResult> UpdateUserAsync(int userId, UserDto updatedUser);
-    Task<IActionResult> DeleteUserAsync(int userId);
+    Task<bool> UpdateUserAsync(int userId, UserDto updatedUser);
+    Task<bool> DeleteUserAsync(int userId);
 }
