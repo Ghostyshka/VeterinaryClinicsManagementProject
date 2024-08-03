@@ -1,4 +1,4 @@
-﻿using Domain.Models.Dtos;
+﻿using Domain.Models.Dtos; 
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using MailKit.Net.Smtp;
@@ -6,15 +6,16 @@ using Contracts;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 
+
 namespace Service;
 
 public class MailService : IMailService
 {
-    private readonly EmailSettingsDto _emailSettings;
+    private readonly EmailSettings _emailSettings;
     private readonly ILogger<MailService> _logger;
 
     public MailService(
-        IOptions<EmailSettingsDto> emailSettings,
+        IOptions<EmailSettings> emailSettings,
         ILogger<MailService> logger)
     {
         _emailSettings = emailSettings.Value;

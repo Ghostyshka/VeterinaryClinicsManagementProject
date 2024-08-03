@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Dtos;
 
-public class EmailSettingsDto
+public class EmailSettings
 {
     public string FromEmail { get; set; }
     public string SmtpServer { get; set; }
