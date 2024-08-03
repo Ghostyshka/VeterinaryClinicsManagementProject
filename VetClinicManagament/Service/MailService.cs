@@ -4,16 +4,21 @@ using MimeKit;
 using MailKit.Net.Smtp;
 using Contracts;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 
 namespace Service;
 
 public class MailService : IMailService
 {
     private readonly EmailSettingsDto _emailSettings;
+    private readonly ILogger<MailService> _logger;
 
-    public MailService(IOptions<EmailSettingsDto> emailSettings)
+    public MailService(
+        IOptions<EmailSettingsDto> emailSettings,
+        ILogger<MailService> logger)
     {
         _emailSettings = emailSettings.Value;
+        _logger = logger;
     }
 
     public async Task<IActionResult> SendMailAsync(MailRequestDto mail)
@@ -35,8 +40,7 @@ public class MailService : IMailService
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.ToString()); //rewrite
-            return new StatusCodeResult(500);
+            _logger.LogError(ex, "Failed to send email to {ToEmail}", mail.ToEmail); return new StatusCodeResult(500);
         }
     }
     public async Task SendWelcomeEmailAsync(string email, string firstName)
@@ -58,6 +62,7 @@ public class MailService : IMailService
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Failed to send welcome email to {Email}", email);
             throw;
         }
     }
