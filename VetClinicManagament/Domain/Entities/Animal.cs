@@ -1,4 +1,5 @@
 ﻿using Domain.Enum;
+using System;
 
 namespace Domain.Entities;
 
@@ -9,7 +10,7 @@ public class Animal
     public int AnimalId { get; set; }
     public string AnimalName { get; set; }
     public string Species { get; set; }
-    public int Age { get; set; }
+    public DateTime DateOfBirth { get; set; }
     public string Breed { get; set; }
     public string Color { get; set; }
 

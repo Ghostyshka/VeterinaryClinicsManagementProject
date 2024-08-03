@@ -10,7 +10,7 @@ public class AddAnimalDto
     public string OwnerEmail { get; set; }
     public string AnimalName { get; set; }
     public string Species { get; set; }
-    public int Age { get; set; }
+    public DateTime DateOfBirth { get; set; }
     public string Breed { get; set; }
     public string Color { get; set; }
 

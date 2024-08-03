@@ -33,7 +33,7 @@ public class ClientService : IClientService
         {
             AnimalName = newAnimal.AnimalName,
             Species = newAnimal.Species,
-            Age = newAnimal.Age,
+            DateOfBirth = newAnimal.DateOfBirth,
             Breed = newAnimal.Breed,
             Color = newAnimal.Color,
             AnimalGender = newAnimal.AnimalGender,
