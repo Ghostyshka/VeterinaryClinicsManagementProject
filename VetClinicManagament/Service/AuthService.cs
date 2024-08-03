@@ -29,33 +29,15 @@ public class AuthService : IAuthService
         var existingUser = await _repositoryManager.UserRepository.GetUserByEmailAsync(newUser.Email);
         if (existingUser != null)
         {
-            var templatePath = Path.Combine("..\\..\\VetClinicManagament\\VetClinicManagament\\", "Templates", "WelcomeTemplate.html");
-            var emailBody = await File.ReadAllTextAsync(templatePath);
-
-            emailBody = emailBody.Replace("{{UserName}}", newUser.FirstName);
-            var mailRequest = new MailRequestDto
-            {
-                ToEmail = newUser.Email,
-                Subject = "Welcome to VetClinic",
-                Body = emailBody
-            };
-
-            try
-            {
-                await _mailService.SendMailAsync(mailRequest);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            await _mailService.SendWelcomeEmailAsync(existingUser.Email, existingUser.FirstName);
         }
-        
+
         return new OkObjectResult(newUser);
     }
 
     public async Task<IActionResult> LoginUserAsync(UserLoginDto loggedUser)
     {
-        var existingUser = await _repositoryManager.UserRepository.GetUserByEmailAsync(loggedUser.UserEmail)??
+        var existingUser = await _repositoryManager.UserRepository.GetUserByEmailAsync(loggedUser.UserEmail) ??
             throw new UserNotFoundException("User does not exist!");
 
         if (!BCrypt.Net.BCrypt.EnhancedVerify(loggedUser.Password, existingUser.PasswordHash, BCrypt.Net.HashType.SHA512))
