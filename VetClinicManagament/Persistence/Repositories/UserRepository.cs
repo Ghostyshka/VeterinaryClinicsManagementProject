@@ -2,7 +2,6 @@
 using Domain.Models;
 using Domain.Models.Dtos;
 using Domain.Repositories;
-using Microsoft.AspNetCore.Mvc;
 using Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 
