@@ -8,6 +8,7 @@ using Persistence.Data;
 using Domain.Repositories;
 using Persistence.Repositories;
 using Contracts;
+using Domain.Models.Dtos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -72,6 +73,9 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+// Email Settings
+builder.Services.Configure<EmailSettingsDto>(builder.Configuration.GetSection("EmailSettings"));
 
 var app = builder.Build();
 
