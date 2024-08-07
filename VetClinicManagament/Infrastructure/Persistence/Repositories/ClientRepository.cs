@@ -33,6 +33,5 @@ public class ClientRepository : IClientRepository
         _dataContext.Vaccine.Add(vaccine);
         var result = await _dataContext.SaveChangesAsync();
         return result > 0;
-
     }
 }

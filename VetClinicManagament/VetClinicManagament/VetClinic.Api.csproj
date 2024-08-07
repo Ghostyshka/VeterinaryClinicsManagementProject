@@ -21,10 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Persistence\Persistence.csproj" />
-    <ProjectReference Include="..\Presentation\Presentation.csproj" />
-    <ProjectReference Include="..\Service.Abstractions\Contracts.csproj" />
-    <ProjectReference Include="..\Service\Service.csproj" />
+    <ProjectReference Include="..\Core\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Core\Service.Abstractions\Contracts.csproj" />
+    <ProjectReference Include="..\Core\Service\Service.csproj" />
+    <ProjectReference Include="..\Infrastructure\Persistence\Persistence.csproj" />
+    <ProjectReference Include="..\Infrastructure\Presentation\Presentation.csproj" />
   </ItemGroup>
 
 </Project>

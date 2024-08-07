@@ -1,5 +1,4 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -9,15 +8,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A6F5258C-7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{885050DA-0943-4CF3-BFFB-6ABB225E766E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{E1276A41-147D-4DBE-9DAC-86CAFF219B30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Core\Service\Service.csproj", "{E1276A41-147D-4DBE-9DAC-86CAFF219B30}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{139B67CC-9950-4470-9665-4DB5F2B23FEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Core\Domain\Domain.csproj", "{139B67CC-9950-4470-9665-4DB5F2B23FEC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation", "Presentation\Presentation.csproj", "{C583D5DC-4FB1-443C-B0C0-8D0A3D6A3496}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation", "Infrastructure\Presentation\Presentation.csproj", "{C583D5DC-4FB1-443C-B0C0-8D0A3D6A3496}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\Persistence.csproj", "{2734254B-0E63-43E8-A4D6-31B9E73270BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Infrastructure\Persistence\Persistence.csproj", "{2734254B-0E63-43E8-A4D6-31B9E73270BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Service.Abstractions\Contracts.csproj", "{369C03B6-8BB2-46AA-A4C3-9B0BC04F907E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Core\Service.Abstractions\Contracts.csproj", "{369C03B6-8BB2-46AA-A4C3-9B0BC04F907E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
