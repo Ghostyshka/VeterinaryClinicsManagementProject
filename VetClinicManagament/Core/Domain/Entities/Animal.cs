@@ -1,5 +1,4 @@
 ﻿using Domain.Enum;
-using System;
 
 namespace Domain.Entities;
 
@@ -30,6 +29,10 @@ public class Animal
     public bool IsLive { get; set; }
     public bool Vaccination { get; set; }
     public string VaccineType { get; set; }
+    
+    public bool Medicals { get; set; }
+    public string MedicalsType { get; set; }
+
     public double Weight { get; set; }
 
     public ICollection<UserAnimal> UserAnimals { get; set; } = new List<UserAnimal>();

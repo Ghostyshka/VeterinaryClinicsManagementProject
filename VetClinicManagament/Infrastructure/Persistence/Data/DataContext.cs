@@ -18,4 +18,6 @@ public class DataContext : DbContext
     public DbSet<UserAnimal> UserAnimals { get; set; }
     public DbSet<Vaccine> Vaccine { get; set; }
     public DbSet<VaccineType> VaccinesType { get; set; }
+    public DbSet<Medicals> Medicals { get; set; }
+    public DbSet<MedicalsType> MedicalsTypes { get; set; }
 }
