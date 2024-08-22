@@ -31,7 +31,7 @@ public class Animal
 
     public bool Vaccination { get; set; }
     public string VaccineType { get; set; }
-    
+
     public bool Medicals { get; set; }
     public string MedicalsType { get; set; }
 
@@ -39,4 +39,5 @@ public class Animal
 
     public ICollection<UserAnimal> UserAnimals { get; set; } = new List<UserAnimal>();
     public ICollection<Treatment> Treatments { get; set; }
+    public ICollection<TreatmentPlan> TreatmentPlans { get; set; } = new List<TreatmentPlan>();
 }
