@@ -15,4 +15,6 @@ public class Treatment
 
     public int? MedicalsId { get; set; }
     public Medicals? Medicals { get; set; }
+
+    public ICollection<TreatmentHistory> TreatmentHistories { get; set; }
 }
