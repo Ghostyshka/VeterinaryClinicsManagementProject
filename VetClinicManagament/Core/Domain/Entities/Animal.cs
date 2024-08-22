@@ -27,13 +27,16 @@ public class Animal
     }
 
     public bool IsLive { get; set; }
+    public double Weight { get; set; }
+
     public bool Vaccination { get; set; }
     public string VaccineType { get; set; }
     
     public bool Medicals { get; set; }
     public string MedicalsType { get; set; }
 
-    public double Weight { get; set; }
+    public bool Services { get; set; }
 
     public ICollection<UserAnimal> UserAnimals { get; set; } = new List<UserAnimal>();
+    public ICollection<Treatment> Treatments { get; set; }
 }

@@ -10,4 +10,6 @@ public class Medicals
 
     public int AnimalId { get; set; }
     public Animal Animal { get; set; }
+
+    public ICollection<Treatment> Treatments { get; set; }
 }
