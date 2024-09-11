@@ -2,14 +2,14 @@
 
 public class Medicals
 {
-    public int MedicalsId { get; set; }
+    public int MedicalId { get; set; }
     public string MedicalName { get; set; }
+    public int MedicalTypeId { get; set; }
+    public decimal MedicalPrice { get; set; }
+    public int MedicalQuantity { get; set; }
+    public DateTime ExpirationDate { get; set; }
 
-    public int MedicalsTypeId { get; set; }
-    public MedicalsType MedicalsType { get; set; }
 
-    public int AnimalId { get; set; }
-    public Animal Animal { get; set; }
-
-    public ICollection<Treatment> Treatments { get; set; }
+    //public MedicalsType MedicalsType { get; set; }
+    //public ICollection<Treatment> Treatments { get; set; }
 }

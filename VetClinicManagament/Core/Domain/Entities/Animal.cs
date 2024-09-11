@@ -8,11 +8,11 @@ public class Animal
 
     public int AnimalId { get; set; }
     public string AnimalName { get; set; }
-    public string Species { get; set; }
+    public bool IsLive { get; set; }
+    public int SpeciesId { get; set; }
+    public int ColorId { get; set; }
     public DateTime DateOfBirth { get; set; }
-    public string Breed { get; set; }
-    public string Color { get; set; }
-
+    public int BreedId { get; set; }
     public AnimalGender AnimalGender
     {
         get => _gender;
@@ -25,19 +25,12 @@ public class Animal
             _gender = value;
         }
     }
-
-    public bool IsLive { get; set; }
     public double Weight { get; set; }
 
-    public bool Vaccination { get; set; }
-    public string VaccineType { get; set; }
-
-    public bool Medicals { get; set; }
-    public string MedicalsType { get; set; }
-
-    public bool Services { get; set; }
-
-    public ICollection<UserAnimal> UserAnimals { get; set; } = new List<UserAnimal>();
+    /*
+    public ICollection<AnimalOwners> UserAnimals { get; set; } = new List<AnimalOwners>();
     public ICollection<Treatment> Treatments { get; set; }
     public ICollection<TreatmentPlan> TreatmentPlans { get; set; } = new List<TreatmentPlan>();
+    public ICollection<Order> Orders { get; set; } = new List<Order>();
+    */
 }
