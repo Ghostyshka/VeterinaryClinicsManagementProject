@@ -11,11 +11,7 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
     {
         builder.HasKey(u => u.UserId);
 
-        builder.Property(u => u.FirstName)
-            .HasMaxLength(128)
-            .IsRequired();
-
-        builder.Property(u => u.LastName)
+        builder.Property(u => u.FullName)
             .HasMaxLength(128)
             .IsRequired();
 
@@ -34,9 +30,5 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(u => u.CreatedAt)
             .IsRequired();
-
-        builder.Property(u => u.UserRole)
-            .IsRequired();
-
     }
 }

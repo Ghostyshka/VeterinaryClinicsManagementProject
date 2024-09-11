@@ -27,10 +27,9 @@ public class Animal
     }
     public double Weight { get; set; }
 
-    /*
-    public ICollection<AnimalOwners> UserAnimals { get; set; } = new List<AnimalOwners>();
-    public ICollection<Treatment> Treatments { get; set; }
-    public ICollection<TreatmentPlan> TreatmentPlans { get; set; } = new List<TreatmentPlan>();
-    public ICollection<Order> Orders { get; set; } = new List<Order>();
-    */
+    public Specie Specie { get; set; }
+    public Color Color { get; set; }
+    public Breed Breed { get; set; }
+
+    public ICollection<AnimalOwner> AnimalOwner { get; set; }
 }

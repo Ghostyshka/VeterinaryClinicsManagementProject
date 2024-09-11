@@ -13,11 +13,16 @@ public class DataContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataContext).Assembly);
     }
 
+    public DbSet<Employee> Employees { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<AnimalOwner> UserAnimals { get; set; }
     public DbSet<Animal> Animals { get; set; }
-    public DbSet<UserAnimal> UserAnimals { get; set; }
-    public DbSet<Vaccine> Vaccine { get; set; }
-    public DbSet<VaccineType> VaccinesType { get; set; }
+    public DbSet<Specie> Specie { get; set; }
+    public DbSet<Color> Color { get; set; }
+    public DbSet<Breed> Breed { get; set; }    
+
+    public DbSet<Visit> Visit { get; set; }
+
     public DbSet<Medicals> Medicals { get; set; }
     public DbSet<MedicalsType> MedicalsTypes { get; set; }
 }

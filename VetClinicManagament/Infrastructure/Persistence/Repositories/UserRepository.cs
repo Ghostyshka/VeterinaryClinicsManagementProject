@@ -16,21 +16,21 @@ public class UserRepository : IUserRepository
         _dataContext = dataContext;
     }
 
-    public async Task<int> AddUserAsync(UserRegistrationDto newUser)
-    {
-        var user = new User
-        {
-            FirstName = newUser.FirstName,
-            LastName = newUser.LastName,
-            Password = newUser.Password,
-            Email = newUser.Email,
-            UserRole = newUser.UserRole
-        };
+    //public async Task<int> AddUserAsync(UserRegistrationDto newUser)
+    //{
+    //    var user = new User
+    //    {
+    //        FullName = newUser.FullName,
+    //        LastName = newUser.LastName,
+    //        Password = newUser.Password,
+    //        Email = newUser.Email,
+    //        UserRole = newUser.UserRole
+    //    };
 
-        _dataContext.Users.Add(user);
-        await _dataContext.SaveChangesAsync();
-        return user.UserId;
-    }
+    //    _dataContext.Users.Add(user);
+    //    await _dataContext.SaveChangesAsync();
+    //    return user.UserId;
+    //}
 
     public async Task<bool> DeleteUserAsync(int userId)
     {
@@ -58,10 +58,8 @@ public class UserRepository : IUserRepository
         return new UserModel
         {
             UserId = user.UserId,
-            FirstName = user.FirstName,
-            LastName = user.LastName,
+            FullName = user.FullName,
             Email = user.Email,
-            UserRole = user.UserRole,
             PasswordHash = user.Password,
             PhoneNumber = user.PhoneNumber
         };
@@ -80,11 +78,9 @@ public class UserRepository : IUserRepository
             return false;
         }
 
-        user.FirstName = updatedUser.FirstName;
-        user.LastName = updatedUser.LastName;
+        user.FullName = updatedUser.FirstName;
         user.Password = updatedUser.Password;
         user.Email = updatedUser.Email;
-        user.UserRole = updatedUser.UserRole;
 
         _dataContext.Users.Update(user);
         await _dataContext.SaveChangesAsync();

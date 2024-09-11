@@ -4,7 +4,6 @@ namespace Domain.Entities;
 
 public class User
 {
-
     public int UserId { get; set; }
     public string FullName { get; set; }
 
@@ -15,6 +14,7 @@ public class User
     public string Password { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; }
 
-    //public ICollection<UserAnimal> UserAnimals { get; set; } = new List<UserAnimal>();
-    //public ICollection<Order> Orders { get; set; } = new List<Order>();
+    public ICollection<Visit> Visit { get; set; }
+
+    //public ICollection<AnimalOwner> AnimalOwner { get; set; } = new List<AnimalOwner>();
 }

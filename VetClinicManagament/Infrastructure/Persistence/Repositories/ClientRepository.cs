@@ -20,18 +20,11 @@ public class ClientRepository : IClientRepository
         return animal.AnimalId;
     }
 
-    public async Task<bool> AddUserAnimalAsync(UserAnimal userAnimal)
+    public async Task<bool> AddUserAnimalAsync(AnimalOwner userAnimal)
     {
         _dataContext.UserAnimals.Add(userAnimal);
         await _dataContext.SaveChangesAsync();
 
         return true;
-    }
-
-    public async Task<bool> AddVaccinationToAnimalAsync(Vaccine vaccine)
-    {
-        _dataContext.Vaccine.Add(vaccine);
-        var result = await _dataContext.SaveChangesAsync();
-        return result > 0;
     }
 }

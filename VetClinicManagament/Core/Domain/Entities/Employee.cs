@@ -9,4 +9,6 @@ public class Employee
     public string PhoneNumber { get; set; }
     public string Password { get; set; }
     public DateTime CreatedAt { get; set; }
+
+    public ICollection<Visit> Visit { get; set; }
 }

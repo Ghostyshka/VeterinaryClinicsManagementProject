@@ -24,12 +24,12 @@ public class AuthService : IAuthService
     {
         newUser.Password = BCrypt.Net.BCrypt.EnhancedHashPassword(newUser.Password, BCrypt.Net.HashType.SHA512);
 
-        await _repositoryManager.UserRepository.AddUserAsync(newUser);
+        //await _repositoryManager.UserRepository.AddUserAsync(newUser);
 
         var existingUser = await _repositoryManager.UserRepository.GetUserByEmailAsync(newUser.Email);
         if (existingUser != null)
         {
-            await _mailService.SendWelcomeEmailAsync(existingUser.Email, existingUser.FirstName);
+            await _mailService.SendWelcomeEmailAsync(existingUser.Email, existingUser.FullName);
         }
 
         return new OkObjectResult(newUser);

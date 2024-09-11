@@ -19,7 +19,7 @@ public class JwtToken
         List<Claim> claims =
         [
             new("UserId", user.UserId.ToString()),
-            new("UserName", user.FirstName)
+            new("UserName", user.FullName)
         ];
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(

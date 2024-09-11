@@ -8,4 +8,6 @@ public class TreatmentPlan
     public DateTime StartOfTreatment { get; set; }
     public DateTime EndOfTreatment { get; set; }
     public bool InClinic { get; set; }
+
+    public ICollection<Visit> Visit { get; set; }
 }
