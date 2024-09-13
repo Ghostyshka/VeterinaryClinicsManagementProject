@@ -22,7 +22,7 @@ public class ClientRepository : IClientRepository
 
     public async Task<bool> AddUserAnimalAsync(AnimalOwner userAnimal)
     {
-        _dataContext.UserAnimals.Add(userAnimal);
+        _dataContext.AnimalOwner.Add(userAnimal);
         await _dataContext.SaveChangesAsync();
 
         return true;

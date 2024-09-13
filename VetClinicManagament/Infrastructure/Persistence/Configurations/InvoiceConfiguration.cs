@@ -13,7 +13,6 @@ internal class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
         builder.Property(i => i.VisitId)
             .IsRequired();
 
-
         builder.Property(i => i.CreatedAt)
             .IsRequired();
 
@@ -23,11 +22,9 @@ internal class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
         builder.Property(i => i.InvoiceStatus)
             .IsRequired();
 
-        //TO:DO
-        // Define relationships
-        //builder.HasOne(i => i.Visit)
-        //  .WithMany(v => v)
-        //  .HasForeignKey(v => v.UserId)
-        //  .IsRequired();
+        builder.HasOne(i => i.InvoiceItem)
+            .WithMany(s => s.Invoice)
+            .HasForeignKey(i => i.InvoiceId)
+            .IsRequired();
     }
 }

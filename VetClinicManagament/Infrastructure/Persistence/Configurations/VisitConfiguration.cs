@@ -22,7 +22,6 @@ internal class VisitConfiguration : IEntityTypeConfiguration<Visit>
         builder.Property(v => v.TreatmentId)
             .IsRequired();
 
-        // Define relationships
         builder.HasOne(v => v.User)
           .WithMany(u => u.Visit)
           .HasForeignKey(v => v.UserId)

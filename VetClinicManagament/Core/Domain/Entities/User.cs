@@ -15,6 +15,5 @@ public class User
     public DateTime CreatedAt { get; set; }
 
     public ICollection<Visit> Visit { get; set; }
-
-    //public ICollection<AnimalOwner> AnimalOwner { get; set; } = new List<AnimalOwner>();
+    public ICollection<AnimalOwner> AnimalOwner { get; set; }
 }
