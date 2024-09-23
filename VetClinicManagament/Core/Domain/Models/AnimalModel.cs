@@ -3,7 +3,7 @@ using Domain.Models.Dtos;
 
 namespace Domain.Models;
 
-public class AnimalModel
+public class AnimalModel        // need to refactor
 {
     private AnimalGender _gender;
 

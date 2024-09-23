@@ -44,7 +44,7 @@ public class AuthController : BaseController
     }
 
     [HttpPut("update/{userId}")]
-    public async Task<IActionResult> UpdateUser(int userId, UserDto updatedUser)
+    public async Task<IActionResult> UpdateUser(int userId, UserUpdateDto updatedUser)
     {
         await _authService.UpdateUserAsync(userId, updatedUser);
         return NoContent();

@@ -9,9 +9,16 @@ public class RepositoryManager : IRepositoryManager
 
     public IUserRepository UserRepository {  get; init; }
 
-    public RepositoryManager(IClientRepository clientRepository, IUserRepository userRepository)
+    public IEmployeeRepository EmployeeRepository { get; init; }
+
+    public IPersonRepository PersonRepository { get; init; }
+
+    public RepositoryManager(IClientRepository clientRepository, IUserRepository userRepository, 
+        IEmployeeRepository employeeRepository, IPersonRepository personRepository)
     {
         ClientRepository = clientRepository;
         UserRepository = userRepository;
+        EmployeeRepository = employeeRepository;
+        PersonRepository = personRepository;
     }
 }

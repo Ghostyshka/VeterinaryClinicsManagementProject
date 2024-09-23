@@ -1,6 +1,4 @@
-﻿using Domain.Enum;
-
-namespace Domain.Entities;
+﻿namespace Domain.Entities;
 
 public class User
 {
@@ -12,7 +10,7 @@ public class User
     public string Email { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public ICollection<Visit> Visit { get; set; }
     public ICollection<AnimalOwner> AnimalOwner { get; set; }

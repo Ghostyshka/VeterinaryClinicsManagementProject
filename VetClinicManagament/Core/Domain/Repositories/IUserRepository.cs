@@ -7,9 +7,9 @@ namespace Domain.Repositories;
 
 public interface IUserRepository
 {
-    //Task<int> AddUserAsync(UserRegistrationDto newUser);
+    Task<int> AddUserAsync(UserRegistrationDto newUser);
     Task<UserModel> GetUserByEmailAsync(string email);
     Task<User> GetUserByIdAsync(int userId);
-    Task<bool> UpdateUserAsync(int userId, UserDto updatedUser);
+    Task<bool> UpdateUserAsync(int userId, UserUpdateDto updatedUser);
     Task<bool> DeleteUserAsync(int userId);
 }

@@ -11,5 +11,5 @@ public interface IAuthService
 
     Task DeleteUserAsync(int userId);
 
-    Task UpdateUserAsync(int userId, UserDto updatedUser);
+    Task UpdateUserAsync(int userId, UserUpdateDto updatedUser);
 }

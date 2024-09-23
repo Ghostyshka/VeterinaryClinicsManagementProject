@@ -24,7 +24,7 @@ public class AuthService : IAuthService
     {
         newUser.Password = BCrypt.Net.BCrypt.EnhancedHashPassword(newUser.Password, BCrypt.Net.HashType.SHA512);
 
-        //await _repositoryManager.UserRepository.AddUserAsync(newUser);
+        await _repositoryManager.UserRepository.AddUserAsync(newUser);
 
         var existingUser = await _repositoryManager.UserRepository.GetUserByEmailAsync(newUser.Email);
         if (existingUser != null)
@@ -56,7 +56,7 @@ public class AuthService : IAuthService
         await _repositoryManager.UserRepository.DeleteUserAsync(userId);
     }
 
-    public async Task UpdateUserAsync(int userId, UserDto updatedUser)
+    public async Task UpdateUserAsync(int userId, UserUpdateDto updatedUser)
     {
         await _repositoryManager.UserRepository.UpdateUserAsync(userId, updatedUser);
     }

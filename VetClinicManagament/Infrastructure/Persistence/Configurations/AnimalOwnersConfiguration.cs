@@ -15,7 +15,6 @@ internal class AnimalOwnersConfiguration : IEntityTypeConfiguration<AnimalOwner>
         
         builder.Property(s => s.AnimalId)
             .IsRequired();
-
-
+        //check to:do
     }
 }

@@ -66,6 +66,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 // Repositories
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 
 // Services
@@ -73,6 +75,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPersonService, PersonService>();
 
 // Email Settings
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));

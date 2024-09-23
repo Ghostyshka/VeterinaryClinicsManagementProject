@@ -2,9 +2,9 @@
 
 namespace Domain.Models;
 
-public class UserModel
+public class EmployeeModel
 {
-    public int UserId { get; set; }
+    public int EmployeeId { get; set; }
     public string FullName { get; set; } = string.Empty;
     public DateTime DateOfBirth { get; set; } // TO DO: implement happy birthday notifications
 

@@ -4,6 +4,7 @@ namespace Contracts;
 
 public interface IClientService
 {
-    //Task<int> AddAnimalAsync(AddAnimalDto newAnimal);
-    //Task<bool> AddVaccinationToAnimalAsync(AddVaccinationDto addVaccinationDto);
+    Task<int> AddAnimalAsync(AddAnimalDto newAnimal);
+    Task<int> DeleteAnimalAsync(AddAnimalDto newAnimal);
+    Task<int> EditAnimalAsync(AddAnimalDto newAnimal);
 }

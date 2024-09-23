@@ -24,17 +24,10 @@ public class ClientController : BaseController
         _clientService = clientService;
     }
 
-    //[HttpPost("addNewAnimal")]
-    //public async Task<IActionResult> AddAnimal([FromBody] AddAnimalDto newAnimal)
-    //{
-    //    var animalId = await _clientService.AddAnimalAsync(newAnimal);
-    //    return Ok(animalId);
-    //}
-
-    //[HttpPost("addVaccineToAnimal")]
-    //public async Task<IActionResult> AddVaccinationToAnimal([FromBody] AddVaccinationDto addVaccinationDto)
-    //{
-    //    var result = await _clientService.AddVaccinationToAnimalAsync(addVaccinationDto);
-    //    return result ? Ok("Vaccination added successfully.") : StatusCode(500, "An error occurred while adding the vaccination.");
-    //}
+    [HttpPost("addNewAnimal")]
+    public async Task<IActionResult> AddAnimal([FromBody] AddAnimalDto newAnimal)
+    {
+        var animalId = await _clientService.AddAnimalAsync(newAnimal);
+        return Ok(animalId);
+    }
 }   
