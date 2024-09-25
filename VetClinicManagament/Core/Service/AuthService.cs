@@ -35,13 +35,13 @@ public class AuthService : IAuthService
         return new OkObjectResult(newUser);
     }
 
-    public async Task<IActionResult> RegisterEmployeeAsync(UserRegistrationDto newEmployee)
+    public async Task<IActionResult> RegisterEmployeeAsync(EmployeeRegistrationDto newEmployee)
     {
         newEmployee.Password = BCrypt.Net.BCrypt.EnhancedHashPassword(newEmployee.Password, BCrypt.Net.HashType.SHA512);
 
         await _repositoryManager.UserRepository.AddEmployeeAsync(newEmployee);
 
-        var existingUser = await _repositoryManager.UserRepository.GetUserByEmailAsync(newEmployee.Email);
+        var existingUser = await _repositoryManager.UserRepository.GetEmployeeByEmailAsync(newEmployee.Email);
         if (existingUser != null)
         {
             await _mailService.SendWelcomeEmailAsync(existingUser.Email, existingUser.FullName);

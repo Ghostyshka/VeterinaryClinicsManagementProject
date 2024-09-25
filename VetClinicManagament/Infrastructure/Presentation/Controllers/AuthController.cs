@@ -30,7 +30,7 @@ public class AuthController : BaseController
     }
 
     [HttpPost("registerAsEmployee")]
-    public async Task<IActionResult> RegisterAsEmployee(UserRegistrationDto newEmployee)
+    public async Task<IActionResult> RegisterAsEmployee(EmployeeRegistrationDto newEmployee)
     {
         var result = await _authService.RegisterEmployeeAsync(newEmployee);
         return result;

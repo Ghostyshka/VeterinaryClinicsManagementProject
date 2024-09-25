@@ -80,11 +80,35 @@ public class UserRepository : IUserRepository
         };
     }
 
+    public async Task<EmployeeModel> GetEmployeeByEmailAsync(string email)
+    {
+        var employee = await _dataContext.Employees
+            .FirstOrDefaultAsync(u => u.Email.Equals(email));
+
+        if (email == null)
+        {
+            return null;        // to:do warning
+        }
+
+        return new EmployeeModel
+        {
+            EmployeeId = employee.EmployeeId,
+            FullName = employee.EmployeeFullName,
+            Email = employee.Email,
+            PasswordHash = employee.Password,
+            PhoneNumber = employee.PhoneNumber
+        };
+    }
+
     public async Task<User> GetUserByIdAsync(int userId)
     {
         return await _dataContext.Users.FindAsync(userId);
     }
 
+    public async Task<Employee> GetEmployeeByIdAsync(int employeeId)
+    {
+        return await _dataContext.Employees.FindAsync(employeeId);
+    }
     //public async Task<bool> UpdateUserAsync(int userId, UserDto updatedUser)
     //{
     //    var user = await _dataContext.Users.FindAsync(userId);
