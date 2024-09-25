@@ -6,6 +6,7 @@ namespace Contracts;
 public interface IAuthService
 {
     Task<IActionResult> RegisterUserAsync(UserRegistrationDto newUser);
+    Task<IActionResult> RegisterEmployeeAsync(UserRegistrationDto newEmployee);
 
     Task<IActionResult> LoginUserAsync(UserLoginDto loggedUser);
 

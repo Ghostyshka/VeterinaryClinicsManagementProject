@@ -30,6 +30,21 @@ public class UserRepository : IUserRepository
         _dataContext.Users.Add(user);
         await _dataContext.SaveChangesAsync();
         return user.UserId;
+    }    
+    public async Task<int> AddEmployeeAsync(EmployeeRegistrationDto newEmployee)
+    {
+        var employee = new Employee
+        {
+            EmployeeFullName = newEmployee.FullName,
+            PhoneNumber = newEmployee.PhoneNumber,
+            Password = newEmployee.Password,
+            Email = newEmployee.Email,
+            DataOfBirth = newEmployee.DateOfBirth,
+        };
+
+        _dataContext.Employees.Add(employee);
+        await _dataContext.SaveChangesAsync();
+        return employee.EmployeeId;
     }
 
     public async Task<bool> DeleteUserAsync(int userId)

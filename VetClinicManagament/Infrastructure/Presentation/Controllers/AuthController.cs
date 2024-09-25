@@ -22,10 +22,17 @@ public class AuthController : BaseController
         _authService = authService;
     }
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register(UserRegistrationDto newUser)
+    [HttpPost("registerAsUser")]
+    public async Task<IActionResult> RegisterAsUser(UserRegistrationDto newUser)
     {
         var result = await _authService.RegisterUserAsync(newUser);
+        return result;
+    }
+
+    [HttpPost("registerAsEmployee")]
+    public async Task<IActionResult> RegisterAsEmployee(UserRegistrationDto newEmployee)
+    {
+        var result = await _authService.RegisterEmployeeAsync(newEmployee);
         return result;
     }
 
