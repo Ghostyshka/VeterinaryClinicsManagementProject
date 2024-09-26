@@ -11,8 +11,8 @@ public class Animal
     public bool IsLive { get; set; }
     public int SpeciesId { get; set; }
     public int ColorId { get; set; }
-    public DateTime DateOfBirth { get; set; }
     public int BreedId { get; set; }
+    public DateTime DateOfBirth { get; set; }
     public AnimalGender AnimalGender
     {
         get => _gender;
