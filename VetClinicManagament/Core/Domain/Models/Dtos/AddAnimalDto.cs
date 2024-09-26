@@ -30,8 +30,4 @@ public class AddAnimalDto
 
     public bool IsLive { get; set; }
     public double Weight { get; set; }
-
-    public Specie Specie { get; set; }
-    public Color Color { get; set; }
-    public Breed Breed { get; set; }
 }
