@@ -37,9 +37,9 @@ public class AuthController : BaseController
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login(UserLoginDto loggedUser)
+    public async Task<IActionResult> Login(PersonLoginDto loggedUser)
     {
-        var result = await _authService.LoginUserAsync(loggedUser);
+        var result = await _authService.LoginAsync(loggedUser);
         return result;
     }
 

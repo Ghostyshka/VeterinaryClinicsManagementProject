@@ -1,4 +1,5 @@
-﻿using Domain.Models.Dtos;
+﻿using Domain.Models;
+using Domain.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Contracts;
@@ -8,7 +9,7 @@ public interface IAuthService
     Task<IActionResult> RegisterUserAsync(UserRegistrationDto newUser);
     Task<IActionResult> RegisterEmployeeAsync(EmployeeRegistrationDto newEmployee);
 
-    Task<IActionResult> LoginUserAsync(UserLoginDto loggedUser);
+    Task<IActionResult> LoginAsync(PersonLoginDto loggedUser);
 
     Task DeleteUserAsync(int userId);
 

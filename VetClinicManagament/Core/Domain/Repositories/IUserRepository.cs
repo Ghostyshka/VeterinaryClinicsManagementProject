@@ -10,9 +10,8 @@ public interface IUserRepository
     Task<int> AddUserAsync(UserRegistrationDto newUser);
     Task<int> AddEmployeeAsync(EmployeeRegistrationDto newEmployee);
 
-    Task<UserModel> GetUserByEmailAsync(string email);
-    Task<EmployeeModel> GetEmployeeByEmailAsync(string email);
-
+    //Task<UserModel> GetUserByEmailAsync(string email);
+    Task<PersonModel> GetPersonByEmailAsync(string email);
     Task<User> GetUserByIdAsync(int userId);
 
     Task<bool> UpdateUserAsync(int userId, UserUpdateDto updatedUser);

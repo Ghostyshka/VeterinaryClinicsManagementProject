@@ -14,13 +14,30 @@ public class JwtToken
     {
         _configuration = configuration;
     }
-    public string CreateToken(UserModel user)
+
+    public string CreateToken(PersonModel person)
     {
-        List<Claim> claims =
-        [
-            new("UserId", user.UserId.ToString()),
-            new("UserName", user.FullName)
-        ];
+        List<Claim> claims;
+        if (person is UserModel user)
+        {
+            claims = new List<Claim>()
+            {
+                new Claim("UserId", user.UserId.ToString()),
+                new Claim("UserName", user.FullName)
+            };
+        }
+        else if (person is EmployeeModel employee)
+        {
+            claims = new List<Claim>()
+            {
+                new Claim("EmployeeId", employee.EmployeeId.ToString()),
+                new Claim("EmployeeName", employee.FullName.ToString())
+            };
+        }
+        else
+        {
+            throw new ArgumentException("Invalid person type");
+        }
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
             _configuration.GetSection("Jwt:Key").Value!));
@@ -33,7 +50,7 @@ public class JwtToken
             signingCredentials: creds,
             issuer: _configuration.GetSection("Jwt:Issuer").Value,
             audience: _configuration.GetSection("Jwt:Audience").Value
-            );
+        );
 
         var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 

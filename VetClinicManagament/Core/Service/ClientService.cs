@@ -1,6 +1,6 @@
-﻿using Contracts;
+﻿using AutoMapper;
+using Contracts;
 using Domain.Entities;
-using Domain.Enum;
 using Domain.Models.Dtos;
 using Domain.Repositories;
 
@@ -9,78 +9,65 @@ namespace Service;
 public class ClientService : IClientService
 {
     private readonly IRepositoryManager _repositoryManager;
+    private readonly IMapper _mapper;
 
-    public ClientService(IRepositoryManager repositoryManager)
+
+    public ClientService(IRepositoryManager repositoryManager, IMapper mapper)
     {
         _repositoryManager = repositoryManager;
+        _mapper = mapper;
     }
 
+    public async Task<int> AddBreedAsync(AddBreedDto newBreed)
+    {
+        var breed = _mapper.Map<Breed>(newBreed);
+        await _repositoryManager.ClientRepository.AddBreedAsync(breed);
+        return breed.BreedId;
+    }
 
-    //public async Task<int> AddAnimalAsync(AddAnimalDto newAnimal)
+    public async Task<int> AddColorAsync(AddColorDto newColor)
+    {
+        var color = _mapper.Map<Color>(newColor);
+        await _repositoryManager.ClientRepository.AddColorAsync(color);
+        return color.ColorId;
+    }
+
+    public async Task<int> AddSpecieAsync(AddSpecieDto newSpecie)
+    {
+        var species = _mapper.Map<Specie>(newSpecie);
+        await _repositoryManager.ClientRepository.AddSpeciesAsync(species);
+        return species.SpecieId;
+    }
+
+    public async Task<int> AddAnimalAsync(AddAnimalDto newAnimal)
+    {
+        var employee = await _repositoryManager.UserRepository.GetPersonByEmailAsync(newAnimal.EmployeeEmail) ??
+           throw new KeyNotFoundException("Worker not found");
+
+        var owner = await _repositoryManager.UserRepository.GetPersonByEmailAsync(newAnimal.UserEmail) ??
+            throw new KeyNotFoundException("Owner not found");
+
+        var animal = new Animal
+        {
+            AnimalName = newAnimal.AnimalName,
+            DateOfBirth = newAnimal.DateOfBirth,
+            AnimalGender = newAnimal.AnimalGender,
+            IsLive = newAnimal.IsLive,
+            Weight = newAnimal.Weight,
+            SpeciesId = newAnimal.SpeciesId,
+            ColorId = newAnimal.ColorId,
+            BreedId = newAnimal.BreedId
+        };
+        await _repositoryManager.ClientRepository.AddAnimalAsync(animal);
+        return animal.AnimalId;
+    }
+
+    //public async Task<int> DeleteAnimalAsync(AddAnimalDto newAnimal)
     //{
-    //    var worker = await _repositoryManager.UserRepository.GetUserByEmailAsync(newAnimal.WorkerEmail) ??
-    //        throw new KeyNotFoundException("Worker not found");
-
-    //    //if (worker.UserRole != UserRole.ClinicWorker)
-    //    //{
-    //    //    throw new UnauthorizedAccessException("Only workers can add animals");
-    //    //}
-
-    //    var owner = await _repositoryManager.UserRepository.GetUserByEmailAsync(newAnimal.OwnerEmail) ??
-    //        throw new KeyNotFoundException("Owner not found");
-
-    //    var animal = new Animal
-    //    {
-    //        AnimalName = newAnimal.AnimalName,
-    //        Species = newAnimal.Species,
-    //        DateOfBirth = newAnimal.DateOfBirth,
-    //        Breed = newAnimal.Breed,
-    //        Color = newAnimal.Color,
-    //        AnimalGender = newAnimal.AnimalGender,
-    //        IsLive = newAnimal.IsLive,
-    //        Vaccination = newAnimal.Vaccination,
-    //        VaccineType = newAnimal.VaccineType,
-    //        Weight = newAnimal.Weight,
-    //    };
-
-    //    await _repositoryManager.ClientRepository.AddAnimalAsync(animal);
-
-    //    var userAnimal = new AnimalOwners     //rewrite
-    //    {
-    //        UserId = owner.UserId,
-    //        AnimalId = animal.AnimalId,
-    //    };
-
-    //    await _repositoryManager.ClientRepository.AddUserAnimalAsync(userAnimal);
-
-    //    return animal.AnimalId;
+    //    return 1;
     //}
-
-    //public async Task<bool> AddVaccinationToAnimalAsync(AddVaccinationDto addVaccinationDto)
+    //public async Task<int> EditAnimalAsync(AddAnimalDto newAnimal)
     //{
-    //    var vaccineType = new VaccineType
-    //    {
-    //        LiveAttenuated = addVaccinationDto.Vaccine.VaccineType.LiveAttenuated,
-    //        Inactivated = addVaccinationDto.Vaccine.VaccineType.Inactivated,
-    //        Toxoid = addVaccinationDto.Vaccine.VaccineType.Toxoid,
-    //        Subunit = addVaccinationDto.Vaccine.VaccineType.Subunit,
-    //        Recombinant = addVaccinationDto.Vaccine.VaccineType.Recombinant,
-    //        Conjugate = addVaccinationDto.Vaccine.VaccineType.Conjugate,
-    //        DNARNA = addVaccinationDto.Vaccine.VaccineType.DNARNA,
-    //        Adjuvanted = addVaccinationDto.Vaccine.VaccineType.Adjuvanted,
-    //        Multivalent = addVaccinationDto.Vaccine.VaccineType.Multivalent,
-    //        Vector = addVaccinationDto.Vaccine.VaccineType.Vector,
-    //    };
-
-    //    var vaccine = new Vaccine
-    //    {
-    //        VaccineName = addVaccinationDto.Vaccine.VaccineName,
-    //        Manufacturer = addVaccinationDto.Vaccine.Manufacturer,
-    //        ExpiryDate = addVaccinationDto.Vaccine.ExpiryDate,
-    //        VaccineType = vaccineType,
-    //        AnimalId = addVaccinationDto.AnimalId
-    //    };
-
-    //    return await _repositoryManager.ClientRepository.AddVaccinationToAnimalAsync(vaccine);
+    //    return 1;
     //}
 }

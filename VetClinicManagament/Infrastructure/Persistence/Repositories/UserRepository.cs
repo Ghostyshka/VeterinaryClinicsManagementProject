@@ -30,7 +30,8 @@ public class UserRepository : IUserRepository
         _dataContext.Users.Add(user);
         await _dataContext.SaveChangesAsync();
         return user.UserId;
-    }    
+    }
+
     public async Task<int> AddEmployeeAsync(EmployeeRegistrationDto newEmployee)
     {
         var employee = new Employee
@@ -60,35 +61,49 @@ public class UserRepository : IUserRepository
         return true;
     }
 
-    public async Task<UserModel> GetUserByEmailAsync(string email)
+    public async Task<PersonModel> GetPersonByEmailAsync(string email)
     {
-        var user = await _dataContext.Users
-            .FirstOrDefaultAsync(u => u.Email.Equals(email));
+        ArgumentNullException.ThrowIfNullOrEmpty(email);
 
-        if (email == null)
+        var user = await _dataContext.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
+        if (user != null)
         {
-            return null;        // to:do warning
+            return new UserModel()
+            {
+                Id = user.UserId,
+                FullName = user.FullName,
+                DateOfBirth = user.DateOfBirth,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Password = user.Password,
+                CreatedAt = DateTime.UtcNow,
+            };
         }
 
-        return new UserModel
+        var employee = await _dataContext.Employees.FirstOrDefaultAsync(e => e.Email.Equals(email));
+        if (employee != null)
         {
-            UserId = user.UserId,
-            FullName = user.FullName,
-            Email = user.Email,
-            PasswordHash = user.Password,
-            PhoneNumber = user.PhoneNumber
-        };
+            return new EmployeeModel()
+            {
+                Id = employee.EmployeeId,
+                FullName = employee.EmployeeFullName,
+                DateOfBirth = employee.DataOfBirth,
+                Email = employee.Email,
+                PhoneNumber = employee.PhoneNumber,
+                Password = employee.Password,
+                CreatedAt = DateTime.UtcNow,
+            };
+        }
+
+        return null;
     }
 
     public async Task<EmployeeModel> GetEmployeeByEmailAsync(string email)
     {
+        ArgumentNullException.ThrowIfNullOrEmpty(email);
+
         var employee = await _dataContext.Employees
             .FirstOrDefaultAsync(u => u.Email.Equals(email));
-
-        if (email == null)
-        {
-            return null;        // to:do warning
-        }
 
         return new EmployeeModel
         {
@@ -109,23 +124,6 @@ public class UserRepository : IUserRepository
     {
         return await _dataContext.Employees.FindAsync(employeeId);
     }
-    //public async Task<bool> UpdateUserAsync(int userId, UserDto updatedUser)
-    //{
-    //    var user = await _dataContext.Users.FindAsync(userId);
-    //    if (user == null)
-    //    {
-    //        return false;
-    //    }
-
-    //    user.FullName = updatedUser.FullName;
-    //    user.Email = updatedUser.Email;
-    //    user.PhoneNumber = updatedUser.PhoneNumber;
-    //    user.Password = updatedUser.Password;
-
-    //    _dataContext.Users.Update(user);
-    //    await _dataContext.SaveChangesAsync();
-    //    return true;
-    //}
 
     public async Task<bool> UpdateUserAsync(int userId, UserUpdateDto updatedUser)
     {
