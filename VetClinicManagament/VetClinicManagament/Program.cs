@@ -10,6 +10,7 @@ using Persistence.Repositories;
 using Contracts;
 using Domain.Models.Dtos;
 using Domain.Entities;
+using Domain.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,7 +79,7 @@ builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPersonService, PersonService>();
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Email Settings
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
