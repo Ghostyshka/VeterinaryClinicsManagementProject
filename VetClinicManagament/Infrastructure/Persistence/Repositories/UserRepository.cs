@@ -4,6 +4,7 @@ using Domain.Models.Dtos;
 using Domain.Repositories;
 using Persistence.Data;
 using Microsoft.EntityFrameworkCore;
+using Domain.Enum;
 
 namespace Persistence.Repositories;
 

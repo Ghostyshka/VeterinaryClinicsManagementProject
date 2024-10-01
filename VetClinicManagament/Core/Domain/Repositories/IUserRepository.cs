@@ -1,7 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Models;
 using Domain.Models.Dtos;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Domain.Repositories;
 
