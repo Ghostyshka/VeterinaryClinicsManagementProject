@@ -1,6 +1,5 @@
 ﻿using Contracts;
 using Domain.Models.Dtos;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -31,6 +30,20 @@ public class ClientController : BaseController
         return Ok(animalId);
     }
 
+    [HttpPut("updateAnimal/{animalId}")]
+    public async Task<IActionResult> UpdateUser(int animalId, AnimalUpdateDto updatedAnimal)
+    {
+        await _clientService.UpdatedAnimalAsync(animalId, updatedAnimal);
+        return NoContent();
+    }
+
+    [HttpDelete("deleteAnimal/{animalId}")]
+    public async Task<IActionResult> DeleteAnimal(int animalId)
+    {
+        await _clientService.DeleteAnimalAsync(animalId);
+        return NoContent();
+    }
+
     [HttpPost("addNewSpecie")]
     public async Task<IActionResult> AddSpecieAsync(AddSpecieDto newSpecie)
     {
@@ -50,11 +63,5 @@ public class ClientController : BaseController
     {
         var animalId = await _clientService.AddColorAsync(newColor);
         return Ok(newColor);
-    }
-
-    [HttpDelete("deleteAnimal")]
-    public async Task<IActionResult> DeleteAnimal()
-    {
-        return Ok();
     }
 }

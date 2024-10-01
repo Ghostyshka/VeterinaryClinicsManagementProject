@@ -62,12 +62,17 @@ public class ClientService : IClientService
         return animal.AnimalId;
     }
 
-    //public async Task<int> DeleteAnimalAsync(AddAnimalDto newAnimal)
-    //{
-    //    return 1;
-    //}
-    //public async Task<int> EditAnimalAsync(AddAnimalDto newAnimal)
-    //{
-    //    return 1;
-    //}
+    public async Task UpdatedAnimalAsync(int animalId, AnimalUpdateDto updatedAnimal)
+    {
+        await _repositoryManager.ClientRepository.UpdatedAnimalAsync(animalId, updatedAnimal);
+    }
+
+    public async Task DeleteAnimalAsync(int animalId)
+    {
+        await _repositoryManager.ClientRepository.DeleteAnimalAsync(animalId);
+    }
+    public async Task<int> EditAnimalAsync(AddAnimalDto newAnimal)
+    {
+        return 1;
+    }
 }
