@@ -23,17 +23,17 @@ internal class VisitConfiguration : IEntityTypeConfiguration<Visit>
             .IsRequired();
 
         builder.HasOne(v => v.User)
-          .WithMany(u => u.Visit)
+          .WithMany(u => u.Visits)
           .HasForeignKey(v => v.UserId)
           .IsRequired();
 
         builder.HasOne(v => v.Employee)
-          .WithMany(e => e.Visit)
+          .WithMany(e => e.Visits)
           .HasForeignKey(v => v.EmployeeId)
           .IsRequired();
 
         builder.HasOne(v => v.Invoice)
-            .WithMany(i => i.Visit)
+            .WithMany(i => i.Visits)
             .HasForeignKey(v => v.InvoiceId)
             .IsRequired();
     }

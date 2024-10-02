@@ -17,8 +17,9 @@ internal class InvoiceItemConfiguration : IEntityTypeConfiguration<InvoiceItem>
             .HasMaxLength(128)
             .IsRequired();
 
-        builder.HasMany(it => it.Invoice)
-            .WithOne(i => i.InvoiceItem)
-            .HasForeignKey(i => i.InvoiceId);
+        builder.HasOne(it => it.Invoice)  // each InvoiceItem belongs to one Invoice
+            .WithMany(i => i.InvoiceItems)  // An Invoice can have many InvoiceItems
+            .HasForeignKey(it => it.InvoiceId)
+            .IsRequired();
     }
 }

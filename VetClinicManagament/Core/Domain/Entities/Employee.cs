@@ -10,5 +10,5 @@ public class Employee
     public string Password { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    public ICollection<Visit> Visit { get; set; }
+    public ICollection<Visit> Visits { get; set; }
 }

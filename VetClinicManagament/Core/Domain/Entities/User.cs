@@ -12,6 +12,6 @@ public class User
     public string Password { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    public ICollection<Visit> Visit { get; set; }
+    public ICollection<Visit> Visits { get; set; }
     public ICollection<AnimalOwner> AnimalOwner { get; set; }
 }

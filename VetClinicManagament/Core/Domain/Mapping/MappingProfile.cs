@@ -24,7 +24,9 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.ColorId, opt => opt.Ignore());
 
         //Invoice Mapping
-        //CreateMap<AddInvoiceDto, Invoice>()
-        //    .ForMember(dest => dest., opt => opt.MapFrom(src => src.));
+        CreateMap<Invoice, InvoiceDto>().ReverseMap();        
+        
+        //InvoiceItem Mapping
+        CreateMap<InvoiceItem, InvoiceItemDto>().ReverseMap();
     }
 }

@@ -6,26 +6,25 @@ using Service;
 namespace Presentation.Controllers;
 
 [ApiController]
-//[Authorize]
-[Route("api/[controller]")]
-//[Route("api/invoices")]
-public class InvoiceController : ControllerBase
+//[Authorize]       //commented for testing
+[Route("api/invoices")]
+public class InvoicesController : ControllerBase
 {
     private readonly InvoiceService _invoiceService;
 
-    public InvoiceController(InvoiceService invoiceService)
+    public InvoicesController(InvoiceService invoiceService)
     {
         _invoiceService = invoiceService;
     }
 
-    [HttpGet("getAllInvoices")]
+    [HttpGet]
     public async Task<IActionResult> GetAllInvoices()
     {
         var invoices = await _invoiceService.GetAllInvoicesAsync();
         return Ok(invoices);
     }
 
-    [HttpGet("getInvoiceById/{id}")]
+    [HttpGet("{id}")]
     public async Task<IActionResult> GetInvoiceById(int id)
     {
         var invoice = await _invoiceService.GetInvoiceByIdAsync(id);
@@ -33,7 +32,7 @@ public class InvoiceController : ControllerBase
         return Ok(invoice);
     }
 
-    [HttpPost("AddInvoice")]
+    [HttpPost]
     public async Task<IActionResult> AddInvoice([FromBody] InvoiceDto newInvoice)
     {
         var result = await _invoiceService.AddInvoiceAsync(newInvoice);
@@ -41,14 +40,14 @@ public class InvoiceController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("updateInvoice/{id}")]
+    [HttpPut("{id}")]
     public async Task<IActionResult> UpdateInvoice(int id, [FromBody] InvoiceDto updatedInvoice)
     {
         await _invoiceService.UpdateInvoiceAsync(updatedInvoice);
         return NoContent();
     }
 
-    [HttpDelete("deleteInvoice/{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteInvoice(int id)
     {
         await _invoiceService.DeleteInvoiceAsync(id);

@@ -16,15 +16,15 @@ internal class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
         builder.Property(i => i.CreatedAt)
             .IsRequired();
 
-        builder.Property(i => i.UpdateAt)
+        builder.Property(i => i.UpdatedAt)
             .IsRequired();
 
         builder.Property(i => i.InvoiceStatus)
             .IsRequired();
 
-        builder.HasOne(i => i.InvoiceItem)
-            .WithMany(s => s.Invoice)
-            .HasForeignKey(i => i.InvoiceId)
-            .IsRequired();
+        builder.HasMany(i => i.Visits)  // invoice has many visits
+            .WithOne(v => v.Invoice)   // a visit has one invoice
+            .HasForeignKey(v => v.InvoiceId)
+            .IsRequired(false);
     }
 }

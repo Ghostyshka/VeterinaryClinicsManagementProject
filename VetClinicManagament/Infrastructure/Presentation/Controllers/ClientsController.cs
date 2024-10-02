@@ -10,20 +10,20 @@ namespace Presentation.Controllers;
 [ApiController]
 //[Authorize]       //commented for testing
 [Route("api/[controller]")]
-public class ClientController : BaseController
+public class ClientsController : BaseController
 {
     private readonly IClientService _clientService;
 
-    public ClientController(
+    public ClientsController(
         IClientService clientService,
         IConfiguration configuration,
-        ILogger<ClientController> logger
+        ILogger<ClientsController> logger
     ) : base(configuration, logger)
     {
         _clientService = clientService;
     }
 
-    [HttpPost("addNewAnimal")]
+    [HttpPost("animal")]
     public async Task<IActionResult> AddAnimal(AddAnimalDto newAnimal)
     {
         var animalId = await _clientService.AddAnimalAsync(newAnimal);
@@ -44,7 +44,7 @@ public class ClientController : BaseController
         return NoContent();
     }
 
-    [HttpPost("addNewSpecie")]
+    [HttpPost("specie")]
     public async Task<IActionResult> AddSpecieAsync(AddSpecieDto newSpecie)
     {
         var animalId = await _clientService.AddSpecieAsync(newSpecie);
@@ -58,7 +58,7 @@ public class ClientController : BaseController
         return Ok(newBreed);
     }
 
-    [HttpPost("addNewColor")]
+    [HttpPost("color")]
     public async Task<IActionResult> AddColorAsync(AddColorDto newColor)
     {
         var animalId = await _clientService.AddColorAsync(newColor);
