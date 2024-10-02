@@ -22,5 +22,9 @@ public class MappingProfile : Profile
         CreateMap<AddColorDto, Color>()
             .ForMember(dest => dest.ColorName, opt => opt.MapFrom(src => src.ColorName))
             .ForMember(dest => dest.ColorId, opt => opt.Ignore());
+
+        //Invoice Mapping
+        //CreateMap<AddInvoiceDto, Invoice>()
+        //    .ForMember(dest => dest., opt => opt.MapFrom(src => src.));
     }
 }

@@ -8,7 +8,7 @@ using Presentation.Controllers.Base;
 namespace Presentation.Controllers;
 
 [ApiController]
-//[Authorize]
+//[Authorize]       //commented for testing
 [Route("api/[controller]")]
 public class ClientController : BaseController
 {
