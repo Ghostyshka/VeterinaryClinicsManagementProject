@@ -28,5 +28,8 @@ public class MappingProfile : Profile
         
         //InvoiceItem Mapping
         CreateMap<InvoiceItem, InvoiceItemDto>().ReverseMap();
+
+        //Visit Mapping
+        CreateMap<Visit, VisitDto>().ReverseMap();
     }
 }

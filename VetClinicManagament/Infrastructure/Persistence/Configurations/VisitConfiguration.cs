@@ -19,22 +19,30 @@ internal class VisitConfiguration : IEntityTypeConfiguration<Visit>
         builder.Property(v => v.EmployeeId)
             .IsRequired();
 
-        builder.Property(v => v.TreatmentId)
+        builder.Property(v => v.Status)
             .IsRequired();
 
+        builder.Property(v => v.Description)
+            .HasMaxLength(1000);
+
         builder.HasOne(v => v.User)
-          .WithMany(u => u.Visits)
-          .HasForeignKey(v => v.UserId)
-          .IsRequired();
+            .WithMany(u => u.Visits)
+            .HasForeignKey(v => v.UserId)
+            .IsRequired();
 
         builder.HasOne(v => v.Employee)
-          .WithMany(e => e.Visits)
-          .HasForeignKey(v => v.EmployeeId)
-          .IsRequired();
+            .WithMany(e => e.Visits)
+            .HasForeignKey(v => v.EmployeeId)
+            .IsRequired();
 
         builder.HasOne(v => v.Invoice)
             .WithMany(i => i.Visits)
             .HasForeignKey(v => v.InvoiceId)
-            .IsRequired();
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(v => v.TreatmentPlan)
+            .WithMany(t => t.Visit)
+            .HasForeignKey(v => v.TreatmentId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

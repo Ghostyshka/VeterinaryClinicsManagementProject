@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence.Data;
@@ -11,9 +12,11 @@ using Persistence.Data;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20241003132201_UpdateVisitInvoiceNullable")]
+    partial class UpdateVisitInvoiceNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -384,21 +387,17 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("DataOfVisit")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
                     b.Property<int>("EmployeeId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("InvoiceId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Status")
+                    b.Property<int?>("TreatmentId")
+                        .IsRequired()
                         .HasColumnType("integer");
 
-                    b.Property<int?>("TreatmentId")
+                    b.Property<int>("TreatmentPlanPlanId")
                         .HasColumnType("integer");
 
                     b.Property<int>("UserId")
@@ -410,7 +409,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("InvoiceId");
 
-                    b.HasIndex("TreatmentId");
+                    b.HasIndex("TreatmentPlanPlanId");
 
                     b.HasIndex("UserId");
 
@@ -500,8 +499,9 @@ namespace Persistence.Migrations
 
                     b.HasOne("Domain.Entities.TreatmentPlan", "TreatmentPlan")
                         .WithMany("Visit")
-                        .HasForeignKey("TreatmentId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("TreatmentPlanPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("Visits")

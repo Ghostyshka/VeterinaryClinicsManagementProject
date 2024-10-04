@@ -7,4 +7,6 @@ public interface IRepositoryManager
     IEmployeeRepository EmployeeRepository { get; }
     IPersonRepository PersonRepository { get; }
     IInvoiceRepository InvoiceRepository { get; }
+    IInvoiceItemRepository InvoiceItemRepository { get; }
+    IVisitRepository VisitRepository { get; }
 }
