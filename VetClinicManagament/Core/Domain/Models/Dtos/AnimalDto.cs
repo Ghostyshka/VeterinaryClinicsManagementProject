@@ -7,10 +7,8 @@ public class AnimalDto
 {
     private AnimalGender _gender;
 
-    public string EmployeeEmail { get; set; }
     public string UserEmail { get; set; }
     public string AnimalName { get; set; }
-    public int SpeciesId { get; set; }
     public int ColorId { get; set; }
     public int BreedId { get; set; }
     public DateTime DateOfBirth { get; set; }
