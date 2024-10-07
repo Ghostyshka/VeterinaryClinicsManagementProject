@@ -27,21 +27,6 @@ public class PersonRepository : IPersonRepository
         }
     }
 
-    //public async Task<T?> GetPersonByEmailAsync<T>(string email) where T : class
-    //{
-    //    if (typeof(T) == typeof(User))
-    //    {
-    //        return await _dataContext.Set<User>()
-    //            .FirstOrDefaultAsync(u => u.Email == email) as T;
-    //    }
-    //    else if (typeof(T) == typeof(Employee))
-    //    {
-    //        return await _dataContext.Set<Employee>()
-    //            .FirstOrDefaultAsync(e => e.Email == email) as T;
-    //    }
-    //    return null;
-    //}
-
     public async Task<T?> GetPersonByEmailAsync<T>(string email) where T : class, IPerson
     {
         return await _dataContext.Set<T>()

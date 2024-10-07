@@ -5,6 +5,4 @@ public class MedicalsType
     public int TypeId { get; set; }
     public string TypeName { get; set; }
     public int Dosage { get; set; }
-
-    //public ICollection<Medicals> Medicals{ get; set; }
 }

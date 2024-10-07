@@ -6,7 +6,4 @@ public class Service
     public string ServiceTypeId { get; set; }
     public int MedicalId { get; set; }
     public decimal Price { get; set; }
-
-    //public ICollection<Treatment> Treatments { get; set; }
-    //public ICollection<Order> Orders { get; set; } = new List<Order>();
 }

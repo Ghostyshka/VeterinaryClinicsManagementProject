@@ -24,18 +24,5 @@ internal class TreatmentPlanConfiguration : IEntityTypeConfiguration<TreatmentPl
         
         builder.Property(tp => tp.InClinic)
             .IsRequired();
-
-        //builder.HasOne(tp => tp.Animal)
-        //    .WithMany(a => a.TreatmentPlans)
-        //    .HasForeignKey(tp => tp.AnimalId)
-        //    .OnDelete(DeleteBehavior.Cascade);
-
-        //builder.HasMany(tp => tp.Medicals)
-        //    .WithOne()
-        //    .OnDelete(DeleteBehavior.Cascade);
-
-        //builder.HasMany(tp => tp.Treatments)
-        //    .WithOne()
-        //    .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -22,8 +22,8 @@ internal class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
         builder.Property(i => i.InvoiceStatus)
             .IsRequired();
 
-        builder.HasMany(i => i.Visits)  // invoice has many visits
-            .WithOne(v => v.Invoice)   // a visit has one invoice
+        builder.HasMany(i => i.Visits)
+            .WithOne(v => v.Invoice)
             .HasForeignKey(v => v.InvoiceId)
             .IsRequired(false);
     }
