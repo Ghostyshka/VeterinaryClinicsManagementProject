@@ -36,7 +36,7 @@ public class InvoiceItemService : IInvoiceItemService
         return invoiceItemDto;
     }
 
-    public async Task<InvoiceItemDto> UpdateAsync(InvoiceItemDto invoiceItemDto)
+    public async Task<InvoiceItemUpdateDto> UpdateAsync(InvoiceItemUpdateDto invoiceItemDto)
     {
         var invoiceItem = _mapper.Map<InvoiceItem>(invoiceItemDto);
         await _repositoryManager.InvoiceItemRepository.UpdateAsync(invoiceItem);
