@@ -14,32 +14,41 @@ internal class AnimalConfiguration : IEntityTypeConfiguration<Animal>
             .HasMaxLength(128)
             .IsRequired();
 
-        builder.Property(a => a.Species)
-            .HasMaxLength(128)
+        builder.Property(a => a.IsLive)
+            .IsRequired();
+
+        builder.Property(a => a.SpeciesId)
+            .IsRequired();
+
+        builder.Property(a => a.ColorId)
             .IsRequired();
 
         builder.Property(a => a.DateOfBirth)
             .IsRequired();
 
-        builder.Property(a => a.Breed)
-            .HasMaxLength(128)
+        builder.Property(a => a.BreedId)
             .IsRequired();
 
-        builder.Property(a => a.Color)
-            .HasMaxLength(128)
+        builder.Property(a => a.AnimalGender)
             .IsRequired();
-
-        builder.Property(a => a.IsLive)
-            .IsRequired();
-
-        builder.Property(a => a.Vaccination)
-            .IsRequired();
-
-        builder.Property(a => a.VaccineType)
-            .HasMaxLength(128);
 
         builder.Property(a => a.Weight)
             .IsRequired();
 
+        // Configure the relationships
+        builder.HasOne(a => a.Specie)
+            .WithMany(s => s.Animals)
+            .HasForeignKey(a => a.SpeciesId)
+            .IsRequired();
+
+        builder.HasOne(a => a.Color)
+            .WithMany(c => c.Animals)
+            .HasForeignKey(a => a.ColorId)
+            .IsRequired();
+
+        builder.HasOne(a => a.Breed)
+            .WithMany(b => b.Animals)
+            .HasForeignKey(a => a.BreedId)
+            .IsRequired();
     }
 }

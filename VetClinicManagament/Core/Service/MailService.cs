@@ -1,11 +1,10 @@
-﻿using Domain.Models.Dtos; 
+﻿using Domain.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using MailKit.Net.Smtp;
 using Contracts;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
-
 
 namespace Service;
 

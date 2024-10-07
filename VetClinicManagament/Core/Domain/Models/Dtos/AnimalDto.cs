@@ -1,4 +1,5 @@
-﻿using Domain.Enum;
+﻿using Domain.Entities;
+using Domain.Enum;
 
 namespace Domain.Models.Dtos;
 
@@ -6,13 +7,11 @@ public class AnimalDto
 {
     private AnimalGender _gender;
 
-    public int OwnerId { get; set; }
-    public int AnimalId { get; set; }
+    public string UserEmail { get; set; }
     public string AnimalName { get; set; }
-    public string Species { get; set; }
-    public int Age { get; set; }
-    public string Breed { get; set; }
-    public string Color { get; set; }
+    public int ColorId { get; set; }
+    public int BreedId { get; set; }
+    public DateTime DateOfBirth { get; set; }
 
     public AnimalGender AnimalGender
     {
@@ -28,7 +27,9 @@ public class AnimalDto
     }
 
     public bool IsLive { get; set; }
-    public bool Vaccination { get; set; }
-    public string VaccineType { get; set; }
     public double Weight { get; set; }
+
+    public Specie Specie { get; set; }
+    public Color Color { get; set; }
+    public Breed Breed { get; set; }
 }

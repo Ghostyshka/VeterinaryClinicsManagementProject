@@ -1,29 +1,24 @@
-﻿using Domain.Enum;
+﻿using Domain.Entities;
 
 namespace Domain.Models.Dtos;
 
 public class UserRegistrationDto
 {
-    private UserRole _userRole;
-
-    public string FirstName { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
-    public DateTime DateOfBirth { get; set; }
-
-    public UserRole UserRole
+    public static implicit operator UserRegistrationDto(User model)
     {
-        get => _userRole;
-        set
+        return new UserRegistrationDto
         {
-            if (!System.Enum.IsDefined(typeof(UserRole), value))
-            {
-                throw new ArgumentException("Invalid user role");
-            }
-            _userRole = value;
-        }
+            FullName = model.FullName,
+            DateOfBirth = model.DateOfBirth,
+            Email = model.Email,
+            PhoneNumber = model.PhoneNumber,
+            Password = model.Password,
+        };
     }
 
-    public string Email { get; set; } = string.Empty;
-    public string PhoneNumber { get; set; } = string.Empty;
-    public string Password { get; set; } = string.Empty;
+    public string FullName { get; set; }
+    public DateTime DateOfBirth { get; set; }
+    public string Email { get; set; }
+    public string PhoneNumber { get; set; }
+    public string Password { get; set; }
 }

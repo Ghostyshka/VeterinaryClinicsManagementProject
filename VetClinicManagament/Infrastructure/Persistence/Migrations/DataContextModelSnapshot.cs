@@ -8,7 +8,7 @@ using Persistence.Data;
 
 #nullable disable
 
-namespace VetClinic.Domain.Migrations
+namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -38,15 +38,11 @@ namespace VetClinic.Domain.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
 
-                    b.Property<string>("Breed")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                    b.Property<int>("BreedId")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                    b.Property<int>("ColorId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("timestamp with time zone");
@@ -54,25 +50,286 @@ namespace VetClinic.Domain.Migrations
                     b.Property<bool>("IsLive")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Species")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
-
-                    b.Property<bool>("Vaccination")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("VaccineType")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                    b.Property<int>("SpeciesId")
+                        .HasColumnType("integer");
 
                     b.Property<double>("Weight")
                         .HasColumnType("double precision");
 
                     b.HasKey("AnimalId");
 
+                    b.HasIndex("BreedId");
+
+                    b.HasIndex("ColorId");
+
+                    b.HasIndex("SpeciesId");
+
                     b.ToTable("Animals");
+                });
+
+            modelBuilder.Entity("Domain.Entities.AnimalOwner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AnimalId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnimalId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AnimalOwner");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Breed", b =>
+                {
+                    b.Property<int>("BreedId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BreedId"));
+
+                    b.Property<string>("BreedName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.HasKey("BreedId");
+
+                    b.ToTable("Breed");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Color", b =>
+                {
+                    b.Property<int>("ColorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ColorId"));
+
+                    b.Property<string>("ColorName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.HasKey("ColorId");
+
+                    b.ToTable("Color");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Employee", b =>
+                {
+                    b.Property<int>("EmployeeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("EmployeeId"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DataOfBirth")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("EmployeeFullName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("EmployeeId");
+
+                    b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Invoice", b =>
+                {
+                    b.Property<int>("InvoiceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("InvoiceId"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("InvoiceStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("VisitId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VisitId1")
+                        .HasColumnType("integer");
+
+                    b.HasKey("InvoiceId");
+
+                    b.HasIndex("VisitId1");
+
+                    b.ToTable("Invoice");
+                });
+
+            modelBuilder.Entity("Domain.Entities.InvoiceItem", b =>
+                {
+                    b.Property<int>("ItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ItemId"));
+
+                    b.Property<int>("InvoiceId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ItemType")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.HasKey("ItemId");
+
+                    b.HasIndex("InvoiceId");
+
+                    b.ToTable("InvoiceItem");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Medicals", b =>
+                {
+                    b.Property<int>("MedicalId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MedicalId"));
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("MedicalName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("MedicalPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("MedicalQuantity")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MedicalTypeId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("MedicalId");
+
+                    b.ToTable("Medicals");
+                });
+
+            modelBuilder.Entity("Domain.Entities.MedicalsType", b =>
+                {
+                    b.Property<int>("TypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TypeId"));
+
+                    b.Property<int>("Dosage")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("TypeId");
+
+                    b.ToTable("MedicalsTypes");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Service", b =>
+                {
+                    b.Property<int>("ServiceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ServiceId"));
+
+                    b.Property<int>("MedicalId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("ServiceTypeId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("ServiceId");
+
+                    b.ToTable("Service");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Specie", b =>
+                {
+                    b.Property<int>("SpecieId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("SpecieId"));
+
+                    b.Property<string>("SpecieName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.HasKey("SpecieId");
+
+                    b.ToTable("Specie");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TreatmentPlan", b =>
+                {
+                    b.Property<int>("PlanId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PlanId"));
+
+                    b.Property<DateTime>("EndOfTreatment")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("InClinic")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("ServiceTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("StartOfTreatment")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("TreatmentId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("PlanId");
+
+                    b.ToTable("TreatmentPlan");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -93,12 +350,7 @@ namespace VetClinic.Domain.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
-
-                    b.Property<string>("LastName")
+                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
@@ -113,9 +365,6 @@ namespace VetClinic.Domain.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("character varying(15)");
 
-                    b.Property<int>("UserRole")
-                        .HasColumnType("integer");
-
                     b.HasKey("UserId");
 
                     b.HasIndex("Email")
@@ -124,138 +373,87 @@ namespace VetClinic.Domain.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Domain.Entities.UserAnimal", b =>
+            modelBuilder.Entity("Domain.Entities.Visit", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("VisitId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("VisitId"));
 
-                    b.Property<int>("AnimalId")
+                    b.Property<DateTime>("DataOfVisit")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("InvoiceId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("TreatmentId")
                         .HasColumnType("integer");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.HasKey("VisitId");
 
-                    b.HasIndex("AnimalId");
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("InvoiceId");
+
+                    b.HasIndex("TreatmentId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserAnimals");
+                    b.ToTable("Visit");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Vaccine", b =>
+            modelBuilder.Entity("Domain.Entities.Animal", b =>
                 {
-                    b.Property<int>("VaccineId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                    b.HasOne("Domain.Entities.Breed", "Breed")
+                        .WithMany("Animals")
+                        .HasForeignKey("BreedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("VaccineId"));
+                    b.HasOne("Domain.Entities.Color", "Color")
+                        .WithMany("Animals")
+                        .HasForeignKey("ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("AnimalId")
-                        .HasColumnType("integer");
+                    b.HasOne("Domain.Entities.Specie", "Specie")
+                        .WithMany("Animals")
+                        .HasForeignKey("SpeciesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<DateTime>("ExpiryDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Navigation("Breed");
 
-                    b.Property<string>("Manufacturer")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                    b.Navigation("Color");
 
-                    b.Property<string>("VaccineName")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
-
-                    b.Property<int>("VaccineTypeId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("VaccineId");
-
-                    b.HasIndex("AnimalId");
-
-                    b.HasIndex("VaccineTypeId");
-
-                    b.ToTable("Vaccine");
+                    b.Navigation("Specie");
                 });
 
-            modelBuilder.Entity("Domain.Entities.VaccineType", b =>
-                {
-                    b.Property<int>("VaccineTypeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("VaccineTypeId"));
-
-                    b.Property<string>("Adjuvanted")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("Conjugate")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("DNARNA")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("Inactivated")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("LiveAttenuated")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("Multivalent")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("Recombinant")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("Subunit")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("Toxoid")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("Vector")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("VaccineTypeId");
-
-                    b.ToTable("VaccinesType");
-                });
-
-            modelBuilder.Entity("Domain.Entities.UserAnimal", b =>
+            modelBuilder.Entity("Domain.Entities.AnimalOwner", b =>
                 {
                     b.HasOne("Domain.Entities.Animal", "Animal")
-                        .WithMany("UserAnimals")
+                        .WithMany("AnimalOwner")
                         .HasForeignKey("AnimalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.User", "User")
-                        .WithMany("UserAnimals")
+                        .WithMany("AnimalOwner")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -265,38 +463,103 @@ namespace VetClinic.Domain.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Vaccine", b =>
+            modelBuilder.Entity("Domain.Entities.Invoice", b =>
                 {
-                    b.HasOne("Domain.Entities.Animal", "Animal")
+                    b.HasOne("Domain.Entities.Visit", "Visit")
                         .WithMany()
-                        .HasForeignKey("AnimalId")
+                        .HasForeignKey("VisitId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.VaccineType", "VaccineType")
-                        .WithMany("Vaccines")
-                        .HasForeignKey("VaccineTypeId")
+                    b.Navigation("Visit");
+                });
+
+            modelBuilder.Entity("Domain.Entities.InvoiceItem", b =>
+                {
+                    b.HasOne("Domain.Entities.Invoice", "Invoice")
+                        .WithMany("InvoiceItems")
+                        .HasForeignKey("InvoiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Animal");
+                    b.Navigation("Invoice");
+                });
 
-                    b.Navigation("VaccineType");
+            modelBuilder.Entity("Domain.Entities.Visit", b =>
+                {
+                    b.HasOne("Domain.Entities.Employee", "Employee")
+                        .WithMany("Visits")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Invoice", "Invoice")
+                        .WithMany("Visits")
+                        .HasForeignKey("InvoiceId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Domain.Entities.TreatmentPlan", "TreatmentPlan")
+                        .WithMany("Visit")
+                        .HasForeignKey("TreatmentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany("Visits")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Invoice");
+
+                    b.Navigation("TreatmentPlan");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.Animal", b =>
                 {
-                    b.Navigation("UserAnimals");
+                    b.Navigation("AnimalOwner");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Breed", b =>
+                {
+                    b.Navigation("Animals");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Color", b =>
+                {
+                    b.Navigation("Animals");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Employee", b =>
+                {
+                    b.Navigation("Visits");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Invoice", b =>
+                {
+                    b.Navigation("InvoiceItems");
+
+                    b.Navigation("Visits");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Specie", b =>
+                {
+                    b.Navigation("Animals");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TreatmentPlan", b =>
+                {
+                    b.Navigation("Visit");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
-                    b.Navigation("UserAnimals");
-                });
+                    b.Navigation("AnimalOwner");
 
-            modelBuilder.Entity("Domain.Entities.VaccineType", b =>
-                {
-                    b.Navigation("Vaccines");
+                    b.Navigation("Visits");
                 });
 #pragma warning restore 612, 618
         }

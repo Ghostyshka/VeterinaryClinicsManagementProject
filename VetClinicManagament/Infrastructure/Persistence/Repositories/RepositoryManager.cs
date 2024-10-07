@@ -1,5 +1,4 @@
 ﻿using Domain.Repositories;
-using Persistence.Data;
 
 namespace Persistence.Repositories;
 
@@ -9,9 +8,28 @@ public class RepositoryManager : IRepositoryManager
 
     public IUserRepository UserRepository {  get; init; }
 
-    public RepositoryManager(IClientRepository clientRepository, IUserRepository userRepository)
+    public IEmployeeRepository EmployeeRepository { get; init; }
+
+    public IPersonRepository PersonRepository { get; init; }
+
+    public IInvoiceRepository InvoiceRepository { get; init; }
+
+    public IInvoiceItemRepository InvoiceItemRepository {  get; init; }
+
+    public IVisitRepository VisitRepository { get; init; }
+
+    public RepositoryManager(
+        IClientRepository clientRepository, IUserRepository userRepository, 
+        IEmployeeRepository employeeRepository, IPersonRepository personRepository, 
+        IInvoiceRepository invoiceRepository, IInvoiceItemRepository invoiceItemRepository, 
+        IVisitRepository visitRepository)
     {
         ClientRepository = clientRepository;
         UserRepository = userRepository;
+        EmployeeRepository = employeeRepository;
+        PersonRepository = personRepository;
+        InvoiceRepository = invoiceRepository;
+        InvoiceItemRepository = invoiceItemRepository;
+        VisitRepository = visitRepository;  
     }
 }

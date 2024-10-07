@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Domain.Exceptions;
+using Domain.Models;
 using Domain.Models.Dtos;
 using Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -26,21 +27,51 @@ public class AuthService : IAuthService
 
         await _repositoryManager.UserRepository.AddUserAsync(newUser);
 
-        var existingUser = await _repositoryManager.UserRepository.GetUserByEmailAsync(newUser.Email);
+        var existingUser = await _repositoryManager.UserRepository.GetPersonByEmailAsync(newUser.Email);
         if (existingUser != null)
         {
-            await _mailService.SendWelcomeEmailAsync(existingUser.Email, existingUser.FirstName);
+            await _mailService.SendWelcomeEmailAsync(existingUser.Email, existingUser.FullName);
         }
 
         return new OkObjectResult(newUser);
     }
 
-    public async Task<IActionResult> LoginUserAsync(UserLoginDto loggedUser)
+    public async Task<IActionResult> RegisterEmployeeAsync(EmployeeRegistrationDto newEmployee)
     {
-        var existingUser = await _repositoryManager.UserRepository.GetUserByEmailAsync(loggedUser.UserEmail) ??
-            throw new UserNotFoundException("User does not exist!");
+        newEmployee.Password = BCrypt.Net.BCrypt.EnhancedHashPassword(newEmployee.Password, BCrypt.Net.HashType.SHA512);
 
-        if (!BCrypt.Net.BCrypt.EnhancedVerify(loggedUser.Password, existingUser.PasswordHash, BCrypt.Net.HashType.SHA512))
+        await _repositoryManager.UserRepository.AddEmployeeAsync(newEmployee);
+
+        var existingUser = await _repositoryManager.UserRepository.GetPersonByEmailAsync(newEmployee.Email);
+        if (existingUser != null)
+        {
+            await _mailService.SendWelcomeEmailAsync(existingUser.Email, existingUser.FullName);
+        }
+
+        return new OkObjectResult(newEmployee);
+    }
+
+    private async Task<PersonModel> GetUserOrEmployee(string email)
+    {
+        var user = await _repositoryManager.UserRepository.GetPersonByEmailAsync(email);
+        if (user != null)
+        {
+            return user;
+        }
+
+        return await _repositoryManager.UserRepository.GetPersonByEmailAsync(email);
+    }
+
+    public async Task<IActionResult> LoginAsync(PersonLoginDto loggedUser)
+    {
+        var existingUser = await _repositoryManager.UserRepository.GetPersonByEmailAsync(loggedUser.PersonEmail);
+
+        if (existingUser == null)
+        {
+            throw new UserNotFoundException("User or Employee does not exist!");
+        }
+
+        if (!BCrypt.Net.BCrypt.EnhancedVerify(loggedUser.Password, existingUser.Password, BCrypt.Net.HashType.SHA512))
         {
             return new BadRequestObjectResult("Username or password are wrong");
         }
@@ -56,7 +87,7 @@ public class AuthService : IAuthService
         await _repositoryManager.UserRepository.DeleteUserAsync(userId);
     }
 
-    public async Task UpdateUserAsync(int userId, UserDto updatedUser)
+    public async Task UpdateUserAsync(int userId, UserUpdateDto updatedUser)
     {
         await _repositoryManager.UserRepository.UpdateUserAsync(userId, updatedUser);
     }

@@ -1,5 +1,4 @@
 ﻿using Domain.Enum;
-using System;
 
 namespace Domain.Entities;
 
@@ -9,11 +8,11 @@ public class Animal
 
     public int AnimalId { get; set; }
     public string AnimalName { get; set; }
-    public string Species { get; set; }
+    public bool IsLive { get; set; }
+    public int SpeciesId { get; set; }
+    public int ColorId { get; set; }
+    public int BreedId { get; set; }
     public DateTime DateOfBirth { get; set; }
-    public string Breed { get; set; }
-    public string Color { get; set; }
-
     public AnimalGender AnimalGender
     {
         get => _gender;
@@ -26,11 +25,11 @@ public class Animal
             _gender = value;
         }
     }
-
-    public bool IsLive { get; set; }
-    public bool Vaccination { get; set; }
-    public string VaccineType { get; set; }
     public double Weight { get; set; }
 
-    public ICollection<UserAnimal> UserAnimals { get; set; } = new List<UserAnimal>();
+    public Specie Specie { get; set; }
+    public Color Color { get; set; }
+    public Breed Breed { get; set; }
+
+    public ICollection<AnimalOwner> AnimalOwner { get; set; }
 }

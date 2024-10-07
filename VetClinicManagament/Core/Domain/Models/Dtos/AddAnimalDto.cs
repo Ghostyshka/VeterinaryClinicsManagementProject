@@ -6,13 +6,13 @@ public class AddAnimalDto
 {
     private AnimalGender _gender;
 
-    public string WorkerEmail { get; set; }
-    public string OwnerEmail { get; set; }
+    public string EmployeeEmail { get; set; }
+    public string UserEmail { get; set; }
     public string AnimalName { get; set; }
-    public string Species { get; set; }
+    public int SpeciesId { get; set; }
+    public int ColorId { get; set; }
+    public int BreedId { get; set; }
     public DateTime DateOfBirth { get; set; }
-    public string Breed { get; set; }
-    public string Color { get; set; }
 
     public AnimalGender AnimalGender
     {
@@ -28,7 +28,5 @@ public class AddAnimalDto
     }
 
     public bool IsLive { get; set; }
-    public bool Vaccination { get; set; }
-    public string VaccineType { get; set; }
     public double Weight { get; set; }
 }

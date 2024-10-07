@@ -22,17 +22,24 @@ public class AuthController : BaseController
         _authService = authService;
     }
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register(UserRegistrationDto newUser)
+    [HttpPost("registerAsUser")]
+    public async Task<IActionResult> RegisterAsUser(UserRegistrationDto newUser)
     {
         var result = await _authService.RegisterUserAsync(newUser);
         return result;
     }
 
-    [HttpPost("login")]
-    public async Task<IActionResult> Login(UserLoginDto loggedUser)
+    [HttpPost("registerAsEmployee")]
+    public async Task<IActionResult> RegisterAsEmployee(EmployeeRegistrationDto newEmployee)
     {
-        var result = await _authService.LoginUserAsync(loggedUser);
+        var result = await _authService.RegisterEmployeeAsync(newEmployee);
+        return result;
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(PersonLoginDto loggedUser)
+    {
+        var result = await _authService.LoginAsync(loggedUser);
         return result;
     }
 
@@ -44,7 +51,7 @@ public class AuthController : BaseController
     }
 
     [HttpPut("update/{userId}")]
-    public async Task<IActionResult> UpdateUser(int userId, UserDto updatedUser)
+    public async Task<IActionResult> UpdateUser(int userId, UserUpdateDto updatedUser)
     {
         await _authService.UpdateUserAsync(userId, updatedUser);
         return NoContent();
