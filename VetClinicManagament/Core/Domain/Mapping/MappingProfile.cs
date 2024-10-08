@@ -31,5 +31,15 @@ public class MappingProfile : Profile
 
         //Visit Mapping
         CreateMap<Visit, VisitDto>().ReverseMap();
+
+        //Service Mapping
+        CreateMap<Service, ProcedureDto>().ReverseMap();
+
+        //ServiceType Mapping
+        CreateMap<ServiceType, ServiceTypeDto>().ReverseMap();
+        CreateMap<ServiceType, ServiceTypeForProcedureDto>().ReverseMap();
+
+        //TreatmentPlan Mapping
+        CreateMap<TreatmentPlan, TreatmentPlanDto>().ReverseMap();
     }
 }

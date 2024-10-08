@@ -27,4 +27,6 @@ public class DataContext : DbContext
 
     public DbSet<Medicals> Medicals { get; set; }
     public DbSet<MedicalsType> MedicalsTypes { get; set; }
+    public DbSet<Service> Service { get; set; }
+    public DbSet<ServiceType> ServiceType { get; set; }
 }
