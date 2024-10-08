@@ -8,4 +8,6 @@ public class Medicals
     public decimal MedicalPrice { get; set; }
     public int MedicalQuantity { get; set; }
     public DateTime ExpirationDate { get; set; }
+
+    public MedicalType MedicalsType { get; set; }
 }

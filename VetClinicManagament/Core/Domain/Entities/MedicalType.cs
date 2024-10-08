@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities;
 
-public class MedicalsType
+public class MedicalType
 {
     public int TypeId { get; set; }
     public string TypeName { get; set; }
