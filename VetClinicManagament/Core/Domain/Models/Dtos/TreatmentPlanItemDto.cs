@@ -1,16 +1,12 @@
-﻿namespace Domain.Entities;
+﻿namespace Domain.Models.Dtos;
 
-public class TreatmentPlanItem
+public class TreatmentPlanItemDto
 {
     public int PlanItemId { get; set; }
     public int PlanId { get; set; }
     public int ServiceId { get; set; }
     public int MedicalId { get; set; }
     public string ItemDescription { get; set; }
-    public double Dosage { get; set; }
+    public int Dosage { get; set; }
     public int Quantity { get; set; }
-
-    public TreatmentPlan TreatmentPlan { get; set; }
-    public Service Service { get; set; }
-    public Medicals Medicals { get; set; }
 }

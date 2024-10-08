@@ -1,6 +1,6 @@
-﻿namespace Domain.Entities;
+﻿namespace Domain.Models.Dtos;
 
-public class TreatmentPlan
+public class TreatmentPlanDto
 {
     public int PlanId { get; set; }
     public int TreatmentId { get; set; }
@@ -9,8 +9,5 @@ public class TreatmentPlan
     public DateTime EndOfTreatment { get; set; }
     public bool InClinic { get; set; }
 
-    public ServiceType ServiceType { get; set; }
-
-    public ICollection<Visit> Visit { get; set; }
-    public ICollection<TreatmentPlanItem> TreatmentPlanItems { get; set; }
+    public List<TreatmentPlanItemDto> TreatmentPlanItems { get; set; } = new List<TreatmentPlanItemDto>();
 }

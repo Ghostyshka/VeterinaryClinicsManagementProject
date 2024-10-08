@@ -10,19 +10,19 @@ internal class TreatmentPlanConfiguration : IEntityTypeConfiguration<TreatmentPl
     {
         builder.HasKey(tp => tp.PlanId);
 
-        builder.Property(tp => tp.TreatmentId)
-            .IsRequired();
-
-        builder.Property(tp => tp.ServiceTypeId)
-            .IsRequired();
-
         builder.Property(tp => tp.StartOfTreatment)
-            .IsRequired();
+               .IsRequired();
 
         builder.Property(tp => tp.EndOfTreatment)
-            .IsRequired();        
-        
-        builder.Property(tp => tp.InClinic)
-            .IsRequired();
+               .IsRequired();
+
+        builder.HasOne(tp => tp.ServiceType)
+               .WithMany(st => st.TreatmentPlans)
+               .HasForeignKey(tp => tp.ServiceTypeId)
+               .IsRequired();
+
+        builder.HasMany(tp => tp.TreatmentPlanItems)
+               .WithOne(tpi => tpi.TreatmentPlan)
+               .HasForeignKey(tpi => tpi.PlanId);
     }
 }
