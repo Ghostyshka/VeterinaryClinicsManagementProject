@@ -73,6 +73,8 @@ builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 builder.Services.AddScoped<IInvoiceItemRepository, InvoiceItemRepository>();
 builder.Services.AddScoped<IVisitRepository, VisitRepository>();
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 
 // Services
@@ -84,6 +86,8 @@ builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 builder.Services.AddScoped<IInvoiceItemService, InvoiceItemService>();
 builder.Services.AddScoped<IVisitService, VisitService>();
+builder.Services.AddScoped<IProcedureService, ProcedureService>();
+builder.Services.AddScoped<IServiceTypeService, ServiceTypeService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Email Settings
