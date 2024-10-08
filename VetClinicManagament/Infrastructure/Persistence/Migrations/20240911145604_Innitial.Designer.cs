@@ -193,7 +193,7 @@ namespace Persistence.Migrations
                     b.ToTable("Medicals");
                 });
 
-            modelBuilder.Entity("Domain.Entities.MedicalsType", b =>
+            modelBuilder.Entity("Domain.Entities.MedicalType", b =>
                 {
                     b.Property<int>("TypeId")
                         .ValueGeneratedOnAdd()

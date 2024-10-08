@@ -12,8 +12,8 @@ using Persistence.Data;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241007130214_MakeInvoiceIdNullable")]
-    partial class MakeInvoiceIdNullable
+    [Migration("20241008160612_AddServiceTypeTreatmentPlanMedicalsType")]
+    partial class AddServiceTypeTreatmentPlanMedicalsType
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -217,6 +217,26 @@ namespace Persistence.Migrations
                     b.ToTable("InvoiceItem");
                 });
 
+            modelBuilder.Entity("Domain.Entities.MedicalType", b =>
+                {
+                    b.Property<int>("TypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TypeId"));
+
+                    b.Property<int>("Dosage")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("TypeId");
+
+                    b.ToTable("MedicalsTypes");
+                });
+
             modelBuilder.Entity("Domain.Entities.Medicals", b =>
                 {
                     b.Property<int>("MedicalId")
@@ -243,27 +263,9 @@ namespace Persistence.Migrations
 
                     b.HasKey("MedicalId");
 
+                    b.HasIndex("MedicalTypeId");
+
                     b.ToTable("Medicals");
-                });
-
-            modelBuilder.Entity("Domain.Entities.MedicalType", b =>
-                {
-                    b.Property<int>("TypeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TypeId"));
-
-                    b.Property<int>("Dosage")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("TypeName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("TypeId");
-
-                    b.ToTable("MedicalsTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.Service", b =>
@@ -278,15 +280,36 @@ namespace Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(8, 2)");
 
-                    b.Property<string>("ServiceTypeId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("ServiceTypeId")
+                        .HasColumnType("integer");
 
                     b.HasKey("ServiceId");
 
+                    b.HasIndex("MedicalId");
+
+                    b.HasIndex("ServiceTypeId");
+
                     b.ToTable("Service");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ServiceType", b =>
+                {
+                    b.Property<int>("ServiceTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ServiceTypeId"));
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.HasKey("ServiceTypeId");
+
+                    b.ToTable("ServiceType");
                 });
 
             modelBuilder.Entity("Domain.Entities.Specie", b =>
@@ -332,7 +355,47 @@ namespace Persistence.Migrations
 
                     b.HasKey("PlanId");
 
+                    b.HasIndex("ServiceTypeId");
+
                     b.ToTable("TreatmentPlan");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TreatmentPlanItem", b =>
+                {
+                    b.Property<int>("PlanItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PlanItemId"));
+
+                    b.Property<double>("Dosage")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("ItemDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("MedicalId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PlanId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("PlanItemId");
+
+                    b.HasIndex("MedicalId");
+
+                    b.HasIndex("PlanId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("TreatmentPlanItem");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -487,6 +550,74 @@ namespace Persistence.Migrations
                     b.Navigation("Invoice");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Medicals", b =>
+                {
+                    b.HasOne("Domain.Entities.MedicalType", "MedicalsType")
+                        .WithMany()
+                        .HasForeignKey("MedicalTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MedicalsType");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Service", b =>
+                {
+                    b.HasOne("Domain.Entities.Medicals", "Medical")
+                        .WithMany()
+                        .HasForeignKey("MedicalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.ServiceType", "ServiceType")
+                        .WithMany("Services")
+                        .HasForeignKey("ServiceTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Medical");
+
+                    b.Navigation("ServiceType");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TreatmentPlan", b =>
+                {
+                    b.HasOne("Domain.Entities.ServiceType", "ServiceType")
+                        .WithMany("TreatmentPlans")
+                        .HasForeignKey("ServiceTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ServiceType");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TreatmentPlanItem", b =>
+                {
+                    b.HasOne("Domain.Entities.Medicals", "Medicals")
+                        .WithMany()
+                        .HasForeignKey("MedicalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.TreatmentPlan", "TreatmentPlan")
+                        .WithMany("TreatmentPlanItems")
+                        .HasForeignKey("PlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Medicals");
+
+                    b.Navigation("Service");
+
+                    b.Navigation("TreatmentPlan");
+                });
+
             modelBuilder.Entity("Domain.Entities.Visit", b =>
                 {
                     b.HasOne("Domain.Entities.Employee", "Employee")
@@ -547,6 +678,13 @@ namespace Persistence.Migrations
                     b.Navigation("Visits");
                 });
 
+            modelBuilder.Entity("Domain.Entities.ServiceType", b =>
+                {
+                    b.Navigation("Services");
+
+                    b.Navigation("TreatmentPlans");
+                });
+
             modelBuilder.Entity("Domain.Entities.Specie", b =>
                 {
                     b.Navigation("Animals");
@@ -554,6 +692,8 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.TreatmentPlan", b =>
                 {
+                    b.Navigation("TreatmentPlanItems");
+
                     b.Navigation("Visit");
                 });
 
