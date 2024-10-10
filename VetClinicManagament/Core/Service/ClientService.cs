@@ -71,8 +71,4 @@ public class ClientService : IClientService
     {
         await _repositoryManager.ClientRepository.DeleteAnimalAsync(animalId);
     }
-    public async Task<int> EditAnimalAsync(AddAnimalDto newAnimal)
-    {
-        return 1;
-    }
 }
