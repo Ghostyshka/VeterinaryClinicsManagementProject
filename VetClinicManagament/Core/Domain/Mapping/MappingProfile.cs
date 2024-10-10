@@ -41,5 +41,10 @@ public class MappingProfile : Profile
 
         //TreatmentPlan Mapping
         CreateMap<TreatmentPlan, TreatmentPlanDto>().ReverseMap();
+        // Medicals Mapping
+        CreateMap<Medical, MedicalDto>().ReverseMap();
+
+        // MedicalsTypes Mapping
+        CreateMap<MedicalsTypes, MedicalTypeDto>().ReverseMap();
     }
 }
