@@ -19,7 +19,7 @@ internal class ServiceConfiguration : IEntityTypeConfiguration<Service>
                .HasForeignKey(s => s.ServiceTypeId)
                .IsRequired();
 
-        builder.HasOne(s => s.Medical)
+        builder.HasOne(s => s.Medicals)
                .WithMany()
                .HasForeignKey(s => s.MedicalId)
                .IsRequired();

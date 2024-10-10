@@ -72,11 +72,11 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.AnimalOwner", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("MedicalId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MedicalId"));
 
                     b.Property<int>("AnimalId")
                         .HasColumnType("integer");
@@ -84,7 +84,7 @@ namespace Persistence.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.HasKey("MedicalId");
 
                     b.HasIndex("AnimalId");
 
@@ -225,10 +225,10 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("MedicalPrice")
+                    b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("MedicalQuantity")
+                    b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
                     b.Property<int>("MedicalTypeId")
@@ -239,7 +239,7 @@ namespace Persistence.Migrations
                     b.ToTable("Medicals");
                 });
 
-            modelBuilder.Entity("Domain.Entities.MedicalType", b =>
+            modelBuilder.Entity("Domain.Entities.MedicalsTypes", b =>
                 {
                     b.Property<int>("TypeId")
                         .ValueGeneratedOnAdd()
