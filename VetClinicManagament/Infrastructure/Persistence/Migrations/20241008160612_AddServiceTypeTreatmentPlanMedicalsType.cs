@@ -115,7 +115,7 @@ namespace Persistence.Migrations
                 name: "FK_Medicals_MedicalsTypes_MedicalTypeId",
                 table: "Medicals",
                 column: "MedicalTypeId",
-                principalTable: "MedicalsTypes",
+                principalTable: "MedicalType",
                 principalColumn: "TypeId",
                 onDelete: ReferentialAction.Cascade);
 

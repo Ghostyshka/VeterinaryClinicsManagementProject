@@ -25,10 +25,10 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_MedicalsTypes",
-                table: "MedicalsTypes");
+                table: "MedicalType");
 
             migrationBuilder.RenameTable(
-                name: "MedicalsTypes",
+                name: "MedicalType",
                 newName: "MedicalType");
 
             migrationBuilder.AlterColumn<string>(
@@ -119,7 +119,7 @@ namespace Persistence.Migrations
 
             migrationBuilder.RenameTable(
                 name: "MedicalType",
-                newName: "MedicalsTypes");
+                newName: "MedicalType");
 
             migrationBuilder.RenameColumn(
                 name: "Id",
@@ -137,7 +137,7 @@ namespace Persistence.Migrations
 
             migrationBuilder.AlterColumn<string>(
                 name: "TypeName",
-                table: "MedicalsTypes",
+                table: "MedicalType",
                 type: "text",
                 nullable: false,
                 oldClrType: typeof(string),
@@ -146,7 +146,7 @@ namespace Persistence.Migrations
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_MedicalsTypes",
-                table: "MedicalsTypes",
+                table: "MedicalType",
                 column: "TypeId");
 
             migrationBuilder.CreateTable(
@@ -167,7 +167,7 @@ namespace Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_Medicals_MedicalsTypes_MedicalTypeId",
                         column: x => x.MedicalTypeId,
-                        principalTable: "MedicalsTypes",
+                        principalTable: "MedicalType",
                         principalColumn: "TypeId",
                         onDelete: ReferentialAction.Cascade);
                 });

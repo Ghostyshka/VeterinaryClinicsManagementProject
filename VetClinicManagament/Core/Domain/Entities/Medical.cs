@@ -9,7 +9,7 @@ public class Medical
     public int Quantity { get; set; }
     public DateTime ExpirationDate { get; set; }
 
-    public MedicalsTypes MedicalsType { get; set; }
+    public MedicalType MedicalsType { get; set; }
 
     public ICollection<TreatmentPlanItem> TreatmentPlanItems { get; set; }
 }

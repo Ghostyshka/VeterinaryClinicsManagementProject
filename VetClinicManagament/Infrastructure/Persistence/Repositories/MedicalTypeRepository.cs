@@ -14,23 +14,23 @@ public class MedicalTypeRepository : IMedicalTypeRepository
         _dataContext = dataContext;
     }
 
-    public async Task<IEnumerable<MedicalsTypes>> GetAllAsync()
+    public async Task<IEnumerable<MedicalType>> GetAllAsync()
     {
         return await _dataContext.MedicalType.ToListAsync();
     }
 
-    public async Task<MedicalsTypes> GetByIdAsync(int id)
+    public async Task<MedicalType> GetByIdAsync(int id)
     {
         return await _dataContext.MedicalType.FindAsync(id);
     }
 
-    public async Task AddAsync(MedicalsTypes medicalsType)
+    public async Task AddAsync(MedicalType medicalsType)
     {
         await _dataContext.MedicalType.AddAsync(medicalsType);
         await _dataContext.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(MedicalsTypes medicalsType)
+    public async Task UpdateAsync(MedicalType medicalsType)
     {
         var existingType = await _dataContext.MedicalType.FindAsync(medicalsType.TypeId);
         if (existingType == null) return;
@@ -42,11 +42,10 @@ public class MedicalTypeRepository : IMedicalTypeRepository
 
     public async Task DeleteAsync(int id)
     {
-        var medicalsType = await _dataContext.MedicalType.FindAsync(id);
-        if (medicalsType != null)
-        {
-            _dataContext.MedicalType.Remove(medicalsType);
-            await _dataContext.SaveChangesAsync();
-        }
+        int affectedRows = await _dataContext.MedicalType
+            .Where(x => x.TypeId == id)
+            .ExecuteDeleteAsync();
+
+        if (affectedRows == 0) return;
     }
 }

@@ -74,7 +74,7 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MedicalsTypes",
+                name: "MedicalType",
                 columns: table => new
                 {
                     TypeId = table.Column<int>(type: "integer", nullable: false)
@@ -239,7 +239,7 @@ namespace Persistence.Migrations
                 name: "Medicals");
 
             migrationBuilder.DropTable(
-                name: "MedicalsTypes");
+                name: "MedicalType");
 
             migrationBuilder.DropTable(
                 name: "Service");

@@ -2,7 +2,7 @@
 
 public class MedicalDto
 {
-    public int MedicalId { get; set; }
+    public int? MedicalId { get; set; }
     public string MedicalName { get; set; }
     public MedicalTypeDto MedicalType { get; set; }
     public decimal MedicalPrice { get; set; }

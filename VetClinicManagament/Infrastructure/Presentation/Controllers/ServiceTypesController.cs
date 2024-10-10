@@ -11,7 +11,6 @@ namespace Presentation.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-
 public class ServiceTypesController : BaseController
 {
     private readonly IServiceTypeService _serviceTypeService;

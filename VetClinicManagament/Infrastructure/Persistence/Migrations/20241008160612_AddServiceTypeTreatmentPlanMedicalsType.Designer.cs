@@ -217,7 +217,7 @@ namespace Persistence.Migrations
                     b.ToTable("InvoiceItem");
                 });
 
-            modelBuilder.Entity("Domain.Entities.MedicalsTypes", b =>
+            modelBuilder.Entity("Domain.Entities.MedicalType", b =>
                 {
                     b.Property<int>("TypeId")
                         .ValueGeneratedOnAdd()
@@ -234,7 +234,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("TypeId");
 
-                    b.ToTable("MedicalsTypes");
+                    b.ToTable("MedicalType");
                 });
 
             modelBuilder.Entity("Domain.Entities.Medicals", b =>
@@ -552,13 +552,13 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Medicals", b =>
                 {
-                    b.HasOne("Domain.Entities.MedicalsTypes", "MedicalsTypes")
+                    b.HasOne("Domain.Entities.MedicalType", "MedicalType")
                         .WithMany()
                         .HasForeignKey("MedicalTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("MedicalsTypes");
+                    b.Navigation("MedicalType");
                 });
 
             modelBuilder.Entity("Domain.Entities.Service", b =>

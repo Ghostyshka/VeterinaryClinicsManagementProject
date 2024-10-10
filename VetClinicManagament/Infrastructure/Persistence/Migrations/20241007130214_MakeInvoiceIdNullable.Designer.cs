@@ -246,7 +246,7 @@ namespace Persistence.Migrations
                     b.ToTable("Medicals");
                 });
 
-            modelBuilder.Entity("Domain.Entities.MedicalsTypes", b =>
+            modelBuilder.Entity("Domain.Entities.MedicalType", b =>
                 {
                     b.Property<int>("TypeId")
                         .ValueGeneratedOnAdd()
@@ -263,7 +263,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("TypeId");
 
-                    b.ToTable("MedicalsTypes");
+                    b.ToTable("MedicalType");
                 });
 
             modelBuilder.Entity("Domain.Entities.Service", b =>
