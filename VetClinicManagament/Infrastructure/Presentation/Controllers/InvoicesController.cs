@@ -1,17 +1,24 @@
-﻿using Domain.Models.Dtos;
+﻿using Contracts;
+using Domain.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using Service;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Presentation.Controllers.Base;
 
 namespace Presentation.Controllers;
 
 [ApiController]
 //[Authorize]       //commented for testing
 [Route("api/invoices")]
-public class InvoicesController : ControllerBase
+public class InvoicesController : BaseController
 {
-    private readonly InvoiceService _invoiceService;
+    private readonly IInvoiceService _invoiceService;
 
-    public InvoicesController(InvoiceService invoiceService)
+    public InvoicesController(
+        IInvoiceService invoiceService,
+        IConfiguration configuration,
+        ILogger<InvoicesController> logger
+    ) : base(configuration, logger)
     {
         _invoiceService = invoiceService;
     }
