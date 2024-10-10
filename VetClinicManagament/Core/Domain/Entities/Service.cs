@@ -8,5 +8,7 @@ public class Service
     public decimal Price { get; set; }
 
     public ServiceType ServiceType { get; set; }
-    public Medicals Medical { get; set; }
+    public Medical Medicals { get; set; }
+
+    public ICollection<TreatmentPlanItem> TreatmentPlanItems { get; set; }
 }
