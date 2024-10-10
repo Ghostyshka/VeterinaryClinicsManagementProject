@@ -4,6 +4,8 @@ public class ProcedureDto
 {
     public string ServiceName { get; set; }
     public decimal ServicePrice { get; set; }
+    public int? MedicalId { get; set; }
 
+    public MedicalDto Medical { get; set; }
     public ServiceTypeForProcedureDto ServiceType { get; set; }
 }
