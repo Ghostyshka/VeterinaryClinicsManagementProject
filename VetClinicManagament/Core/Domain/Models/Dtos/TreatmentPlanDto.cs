@@ -7,5 +7,5 @@ public class TreatmentPlanDto
     public DateTime EndOfTreatment { get; set; }
     public bool InClinic { get; set; }
 
-    public List<TreatmentPlanItemDto> TreatmentPlanItems { get; set; } = new List<TreatmentPlanItemDto>();
+    public List<int> TreatmentPlanItems { get; set; } = new List<int>();
 }
