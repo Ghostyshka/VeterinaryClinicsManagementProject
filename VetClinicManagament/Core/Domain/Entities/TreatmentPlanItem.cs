@@ -12,5 +12,5 @@ public class TreatmentPlanItem
 
     public TreatmentPlan TreatmentPlan { get; set; }
     public Service Service { get; set; }
-    public Medicals Medicals { get; set; }
+    public Medical Medical { get; set; }
 }

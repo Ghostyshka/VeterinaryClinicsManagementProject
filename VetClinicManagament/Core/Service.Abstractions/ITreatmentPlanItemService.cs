@@ -1,8 +1,8 @@
 ﻿using Domain.Entities;
 
-namespace Domain.Repositories;
+namespace Contracts;
 
-public interface ITreatmentPlanItemRepository
+public interface ITreatmentPlanItemService
 {
     Task<IEnumerable<TreatmentPlanItem>> GetItemsByPlanIdAsync(int planId);
     Task AddAsync(TreatmentPlanItem item);
