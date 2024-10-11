@@ -42,7 +42,6 @@ public class InvoicesController : BaseController
     public async Task<IActionResult> AddInvoice([FromBody] InvoiceDto newInvoice)
     {
         var result = await _invoiceService.AddInvoiceAsync(newInvoice);
-        //return CreatedAtAction(nameof(GetInvoice), new { id = result.InvoiceId }, result);
         return Ok(result);
     }
 
