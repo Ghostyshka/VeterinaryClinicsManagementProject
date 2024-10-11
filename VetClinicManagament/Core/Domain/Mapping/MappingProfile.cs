@@ -23,18 +23,18 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.ColorName, opt => opt.MapFrom(src => src.ColorName))
             .ForMember(dest => dest.ColorId, opt => opt.Ignore());
 
-        // Invoice -> InvoiceDto Mapping
+        //Invoice Mapping
         CreateMap<Invoice, InvoiceDto>()
             .ForMember(dest => dest.InvoiceItems, opt => opt.MapFrom(
                 src => src.InvoiceItems.Select(item => item.ItemId).ToList()));
 
-        // InvoiceDto -> Invoice Mapping
-        CreateMap<InvoiceDto, Invoice>()
-            .ForMember(dest => dest.InvoiceItems, opt => opt.MapFrom(
-                src => src.InvoiceItems.Select(id => new InvoiceItem { ItemId = id }).ToList()));
-
         //InvoiceItem Mapping
         CreateMap<InvoiceItem, InvoiceItemDto>().ReverseMap();
+
+        //InvoiceItemDto Mapping
+        CreateMap<InvoiceDto, Invoice>()
+            .ForMember(dest => dest.InvoiceItems, opt => opt.Ignore())
+            .ReverseMap();
 
         //Visit Mapping
         CreateMap<Visit, VisitDto>().ReverseMap();
