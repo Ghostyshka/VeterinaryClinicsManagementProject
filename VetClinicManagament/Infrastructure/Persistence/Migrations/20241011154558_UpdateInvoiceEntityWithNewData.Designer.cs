@@ -12,8 +12,8 @@ using Persistence.Data;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241011144946_UpdateInvoiceEntity")]
-    partial class UpdateInvoiceEntity
+    [Migration("20241011154558_UpdateInvoiceEntityWithNewData")]
+    partial class UpdateInvoiceEntityWithNewData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -475,6 +475,8 @@ namespace Persistence.Migrations
 
                     b.HasIndex("EmployeeId");
 
+                    b.HasIndex("InvoiceId");
+
                     b.HasIndex("TreatmentId");
 
                     b.HasIndex("UserId");
@@ -625,6 +627,10 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Invoice", null)
+                        .WithMany("Visits")
+                        .HasForeignKey("InvoiceId");
+
                     b.HasOne("Domain.Entities.TreatmentPlan", "TreatmentPlan")
                         .WithMany("Visit")
                         .HasForeignKey("TreatmentId")
@@ -666,6 +672,8 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Invoice", b =>
                 {
                     b.Navigation("InvoiceItems");
+
+                    b.Navigation("Visits");
                 });
 
             modelBuilder.Entity("Domain.Entities.Medical", b =>
