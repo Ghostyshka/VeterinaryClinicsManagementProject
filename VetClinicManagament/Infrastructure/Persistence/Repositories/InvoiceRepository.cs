@@ -2,6 +2,7 @@
 using Persistence.Data;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Domain.Models.Dtos;
 
 namespace Persistence.Repositories;
 
@@ -24,11 +25,11 @@ public class InvoiceRepository : IInvoiceRepository
         return await _dataContext.Invoice.Include(i => i.InvoiceItems).Include(i => i.Visit).FirstOrDefaultAsync(i => i.InvoiceId == id);
     }
 
-    public async Task<Invoice> AddInvoiceAsync(Invoice invoice)
+    public async Task<int> AddInvoiceAsync(Invoice invoice)
     {
         await _dataContext.Invoice.AddAsync(invoice);
-        await _dataContext.SaveChangesAsync();
-        return invoice;
+        return await _dataContext.SaveChangesAsync();
+        
     }
 
     public async Task UpdateInvoiceAsync(Invoice invoice)

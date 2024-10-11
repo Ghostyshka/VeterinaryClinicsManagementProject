@@ -8,5 +8,5 @@ public class InvoiceDto
     public DateTime CreatedAt { get; set; }
     public DateTime UpdateAt { get; set; }
     public InvoiceStatus InvoiceStatus { get; set; }
-    public List<InvoiceItemDto> InvoiceItems { get; set; }
+    public List<int> InvoiceItems { get; set; }
 }

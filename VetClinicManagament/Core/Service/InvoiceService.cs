@@ -31,7 +31,6 @@ public class InvoiceService : IInvoiceService
 
     public async Task<InvoiceDto> AddInvoiceAsync(InvoiceDto invoice)
     {
-        // Set timestamps
         invoice.CreatedAt = DateTime.UtcNow;
         invoice.UpdateAt = DateTime.UtcNow;
 

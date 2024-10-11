@@ -36,8 +36,8 @@ internal class VisitConfiguration : IEntityTypeConfiguration<Visit>
             .IsRequired();
 
         builder.HasOne(v => v.Invoice)
-            .WithMany(i => i.Visits)
-            .HasForeignKey(v => v.InvoiceId)
+            .WithOne(i => i.Visit)
+            .HasForeignKey<Invoice>(i => i.VisitId)
             .OnDelete(DeleteBehavior.SetNull);
 
         builder.HasOne(v => v.TreatmentPlan)

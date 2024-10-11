@@ -14,5 +14,4 @@ public class Invoice
     public InvoiceStatus InvoiceStatus { get; set; }
 
     public ICollection<InvoiceItem> InvoiceItems { get; set; }
-    public ICollection<Visit> Visits { get; set; }
 }
