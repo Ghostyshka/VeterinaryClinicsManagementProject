@@ -6,5 +6,5 @@ public class ProcedureDto
     public decimal ServicePrice { get; set; }
     public int? MedicalId { get; set; }
 
-    public ServiceTypeForProcedureDto ServiceType { get; set; }
+    public int ServiceTypeId { get; set; }
 }
