@@ -1,6 +1,6 @@
 ﻿using Contracts;
 using Domain.Repositories;
-using ServiceModel= Domain.Entities.Service;
+using ServiceModel = Domain.Entities.Service;
 
 namespace Service;
 
