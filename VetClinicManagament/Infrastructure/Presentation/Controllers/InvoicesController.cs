@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Domain.Models.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -8,7 +9,7 @@ using Presentation.Controllers.Base;
 namespace Presentation.Controllers;
 
 [ApiController]
-//[Authorize]       //commented for testing
+[Authorize]
 [Route("api/invoices")]
 public class InvoicesController : BaseController
 {
