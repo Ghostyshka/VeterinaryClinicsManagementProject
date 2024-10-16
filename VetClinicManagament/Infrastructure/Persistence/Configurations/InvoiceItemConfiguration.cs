@@ -11,7 +11,7 @@ internal class InvoiceItemConfiguration : IEntityTypeConfiguration<InvoiceItem>
         builder.HasKey(it => it.ItemId);
 
         builder.Property(it => it.InvoiceId)
-            .IsRequired(false);
+            .IsRequired(true);
 
         builder.Property(it => it.ItemType)
             .HasMaxLength(128)
