@@ -75,7 +75,9 @@ public class InvoiceRepository : IInvoiceRepository
             UpdatedAt = invoice.UpdatedAt,
             InvoiceItems = invoice.InvoiceItems.Select(item => new InvoiceItemDto
             {
-                ItemType = item.ItemType
+                ItemType = item.ItemType,
+                Price = item.Price,
+                Quantity = item.Quantity,
             }).ToList()
         };
 
