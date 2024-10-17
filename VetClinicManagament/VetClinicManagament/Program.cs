@@ -9,9 +9,9 @@ using Domain.Repositories;
 using Persistence.Repositories;
 using Contracts;
 using Domain.Models.Dtos;
-using Domain.Entities;
 using Domain.Mapping;
 using Domain.IRepositories;
+using Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -95,10 +95,14 @@ builder.Services.AddScoped<IServiceTypeService, ServiceTypeService>();
 builder.Services.AddScoped<ITreatmentPlanItemService, TreatmentPlanItemService>();
 builder.Services.AddScoped<IMedicalService, MedicalService>();
 builder.Services.AddScoped<IMedicalTypeService, MedicalTypeService>();
+builder.Services.AddScoped< IPDFGenService, PDFGenService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Email Settings
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+
+// PDF Settings
+QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 
 var app = builder.Build();
 

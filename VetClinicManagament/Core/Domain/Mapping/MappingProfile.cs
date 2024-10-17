@@ -56,5 +56,16 @@ public class MappingProfile : Profile
 
         // MedicalType Mapping
         CreateMap<MedicalType, MedicalTypeDto>().ReverseMap();
+
+        // Invoice -> InvoiceVisitDetailsDto Mapping
+        CreateMap<Invoice, InvoiceVisitDetailsDto>()
+            .ForMember(dest => dest.VisitId, opt => opt.MapFrom(src => src.VisitId))
+            .ForMember(dest => dest.VisitDate, opt => opt.MapFrom(src => src.Visit.DataOfVisit))
+            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Visit.User.FullName))
+            .ForMember(dest => dest.EmployeeName, opt => opt.MapFrom(src => src.Visit.Employee.EmployeeFullName))
+            .ForMember(dest => dest.InvoiceItems, opt => opt.MapFrom(src => src.InvoiceItems.Select(item => new InvoiceItemDto
+            {
+                ItemType = item.ItemType
+            }).ToList()));
     }
 }
