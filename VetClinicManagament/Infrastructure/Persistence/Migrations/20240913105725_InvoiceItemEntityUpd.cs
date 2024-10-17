@@ -49,7 +49,7 @@ namespace Persistence.Migrations
             migrationBuilder.AddPrimaryKey(
                 name: "PK_AnimalOwner",
                 table: "AnimalOwner",
-                column: "Id");
+                column: "MedicalId");
 
             migrationBuilder.CreateTable(
                 name: "InvoiceItem",
@@ -132,7 +132,7 @@ namespace Persistence.Migrations
             migrationBuilder.AddPrimaryKey(
                 name: "PK_UserAnimals",
                 table: "UserAnimals",
-                column: "Id");
+                column: "MedicalId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_UserAnimals_Animals_AnimalId",

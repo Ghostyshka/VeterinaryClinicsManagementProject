@@ -4,11 +4,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistence.Configurations;
 
-internal class MedicalsTypeConfiguration : IEntityTypeConfiguration<MedicalsType>
+internal class MedicalsTypeConfiguration : IEntityTypeConfiguration<MedicalType>
 {
-    public void Configure(EntityTypeBuilder<MedicalsType> builder)
+    public void Configure(EntityTypeBuilder<MedicalType> builder)
     {
         builder.HasKey(mt => mt.TypeId);
 
+        builder.Property(mt => mt.TypeName)
+            .IsRequired()
+            .HasMaxLength(100);
     }
 }

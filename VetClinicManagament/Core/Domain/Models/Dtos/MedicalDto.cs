@@ -1,6 +1,6 @@
-﻿namespace Domain.Entities;
+﻿namespace Domain.Models.Dtos;
 
-public class Medicals
+public class MedicalDto
 {
     public int MedicalId { get; set; }
     public string MedicalName { get; set; }

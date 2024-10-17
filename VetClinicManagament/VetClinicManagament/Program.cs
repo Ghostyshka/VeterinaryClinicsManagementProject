@@ -11,6 +11,7 @@ using Contracts;
 using Domain.Models.Dtos;
 using Domain.Entities;
 using Domain.Mapping;
+using Domain.IRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,6 +74,11 @@ builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 builder.Services.AddScoped<IInvoiceItemRepository, InvoiceItemRepository>();
 builder.Services.AddScoped<IVisitRepository, VisitRepository>();
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
+builder.Services.AddScoped<ITreatmentPlanItemRepository, TreatmentPlanItemRepository>();
+builder.Services.AddScoped<IMedicalRepository, MedicalRepository>();
+builder.Services.AddScoped<IMedicalTypeRepository, MedicalTypeRepository>();
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 
 // Services
@@ -84,6 +90,11 @@ builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 builder.Services.AddScoped<IInvoiceItemService, InvoiceItemService>();
 builder.Services.AddScoped<IVisitService, VisitService>();
+builder.Services.AddScoped<IProcedureService, ProcedureService>();
+builder.Services.AddScoped<IServiceTypeService, ServiceTypeService>();
+builder.Services.AddScoped<ITreatmentPlanItemService, TreatmentPlanItemService>();
+builder.Services.AddScoped<IMedicalService, MedicalService>();
+builder.Services.AddScoped<IMedicalTypeService, MedicalTypeService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Email Settings

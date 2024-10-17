@@ -25,6 +25,12 @@ public class DataContext : DbContext
     public DbSet<Invoice> Invoice { get; set; }
     public DbSet<InvoiceItem> InvoiceItem { get; set; }
 
-    public DbSet<Medicals> Medicals { get; set; }
-    public DbSet<MedicalsType> MedicalsTypes { get; set; }
+    public DbSet<Medical> Medical { get; set; }
+    public DbSet<MedicalType> MedicalType { get; set; }
+
+    public DbSet<TreatmentPlan> TreatmentPlan { get; set; }
+    public DbSet<TreatmentPlanItem> TreatmentPlanItem { get; set; }
+
+    public DbSet<Service> Service { get; set; }
+    public DbSet<ServiceType> ServiceType { get; set; }
 }

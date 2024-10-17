@@ -1,18 +1,25 @@
-﻿using Domain.Entities;
+﻿using Contracts;
 using Domain.Models.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Service;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Presentation.Controllers.Base;
 
 namespace Presentation.Controllers;
 
 [ApiController]
-//[Authorize]       //commented for testing
+[Authorize]
 [Route("api/invoices")]
-public class InvoicesController : ControllerBase
+public class InvoicesController : BaseController
 {
-    private readonly InvoiceService _invoiceService;
+    private readonly IInvoiceService _invoiceService;
 
-    public InvoicesController(InvoiceService invoiceService)
+    public InvoicesController(
+        IInvoiceService invoiceService,
+        IConfiguration configuration,
+        ILogger<InvoicesController> logger
+    ) : base(configuration, logger)
     {
         _invoiceService = invoiceService;
     }
@@ -36,7 +43,6 @@ public class InvoicesController : ControllerBase
     public async Task<IActionResult> AddInvoice([FromBody] InvoiceDto newInvoice)
     {
         var result = await _invoiceService.AddInvoiceAsync(newInvoice);
-        //return CreatedAtAction(nameof(GetInvoice), new { id = result.InvoiceId }, result);
         return Ok(result);
     }
 

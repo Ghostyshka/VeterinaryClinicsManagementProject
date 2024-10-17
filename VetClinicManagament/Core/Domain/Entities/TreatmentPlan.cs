@@ -9,5 +9,8 @@ public class TreatmentPlan
     public DateTime EndOfTreatment { get; set; }
     public bool InClinic { get; set; }
 
+    public ServiceType ServiceType { get; set; }
+
     public ICollection<Visit> Visit { get; set; }
+    public ICollection<TreatmentPlanItem> TreatmentPlanItems { get; set; }
 }

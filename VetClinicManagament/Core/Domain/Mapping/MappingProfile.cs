@@ -24,12 +24,37 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.ColorId, opt => opt.Ignore());
 
         //Invoice Mapping
-        CreateMap<Invoice, InvoiceDto>().ReverseMap();        
-        
+        CreateMap<Invoice, InvoiceDto>()
+            .ForMember(dest => dest.InvoiceItems, opt => opt.MapFrom(
+                src => src.InvoiceItems.Select(item => item.ItemId).ToList()));
+
         //InvoiceItem Mapping
         CreateMap<InvoiceItem, InvoiceItemDto>().ReverseMap();
 
+        //InvoiceItemDto Mapping
+        CreateMap<InvoiceDto, Invoice>()
+            .ForMember(dest => dest.InvoiceItems, opt => opt.Ignore())
+            .ReverseMap();
+
         //Visit Mapping
         CreateMap<Visit, VisitDto>().ReverseMap();
+
+        //Service Mapping
+        CreateMap<Service, ProcedureDto>().ReverseMap();
+
+        //ServiceType Mapping
+        CreateMap<ServiceType, ServiceTypeDto>().ReverseMap();
+
+        //TreatmentPlan Mapping
+        CreateMap<TreatmentPlan, TreatmentPlanDto>().ReverseMap();
+
+        // TreatmentPlanItem Mapping
+        CreateMap<TreatmentPlanItem, TreatmentPlanItemDto>().ReverseMap();
+
+        // Medicals Mapping
+        CreateMap<Medical, MedicalDto>().ReverseMap();
+
+        // MedicalType Mapping
+        CreateMap<MedicalType, MedicalTypeDto>().ReverseMap();
     }
 }

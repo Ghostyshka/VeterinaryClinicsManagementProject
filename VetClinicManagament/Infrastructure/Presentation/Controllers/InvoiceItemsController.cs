@@ -51,18 +51,18 @@ public class InvoiceItemsController : BaseController
         }
 
         var createdItem = await _invoiceItemService.AddAsync(invoiceItem);
-        return CreatedAtAction(nameof(GetInvoiceItem), new { id = createdItem.ItemId }, createdItem);
+        return Ok(createdItem);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateInvoiceItem(int id, [FromBody] InvoiceItemDto invoiceItem)
+    public async Task<IActionResult> UpdateInvoiceItem(int id, [FromBody] InvoiceItemUpdateDto invoiceItemUpdated)
     {
-        if (id != invoiceItem.ItemId || !ModelState.IsValid)
+        if (id != invoiceItemUpdated.ItemId || !ModelState.IsValid)
         {
             return BadRequest();
         }
 
-        var updatedItem = await _invoiceItemService.UpdateAsync(invoiceItem);
+        var updatedItem = await _invoiceItemService.UpdateAsync(invoiceItemUpdated);
         return Ok(updatedItem);
     }
 

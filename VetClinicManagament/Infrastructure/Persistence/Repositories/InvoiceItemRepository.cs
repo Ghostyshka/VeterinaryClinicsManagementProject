@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.Models.Dtos;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
@@ -23,14 +22,14 @@ public class InvoiceItemRepository : IInvoiceItemRepository
 
     public async Task<InvoiceItem?> GetByIdAsync(int id)
     {
-        return await _dataContext.InvoiceItem.FirstOrDefaultAsync( x => x.InvoiceId == id);
+        return await _dataContext.InvoiceItem.FirstOrDefaultAsync(x => x.InvoiceId == id);
     }
 
     public async Task<int> AddAsync(InvoiceItem invoiceItem)
     {
         await _dataContext.InvoiceItem.AddAsync(invoiceItem);
         await _dataContext.SaveChangesAsync();
-        return invoiceItem.InvoiceId;
+        return invoiceItem.ItemId;
     }
 
     public async Task UpdateAsync(InvoiceItem invoiceItemDto)

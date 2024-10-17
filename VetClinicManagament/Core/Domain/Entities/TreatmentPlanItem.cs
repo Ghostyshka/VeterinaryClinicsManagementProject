@@ -9,4 +9,8 @@ public class TreatmentPlanItem
     public string ItemDescription { get; set; }
     public double Dosage { get; set; }
     public int Quantity { get; set; }
+
+    public TreatmentPlan TreatmentPlan { get; set; }
+    public Service Service { get; set; }
+    public Medical Medical { get; set; }
 }
