@@ -3,7 +3,6 @@ using Domain.Models.Dtos;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using System.Linq;
 
 namespace Service;
 
@@ -32,13 +31,10 @@ public class PDFGenService : IPDFGenService
                 page.PageColor(Colors.White);
                 page.DefaultTextStyle(x => x.FontSize(14));
 
-                // Header section
                 page.Header().Element(ComposeHeader);
 
-                // Content section
                 page.Content().Element(ComposeContent);
 
-                // Footer section
                 page.Footer().AlignCenter().Text(x =>
                 {
                     x.Span("Page ");
@@ -47,7 +43,6 @@ public class PDFGenService : IPDFGenService
                     x.TotalPages();
                 });
 
-                // Function to compose header
                 void ComposeHeader(IContainer container)
                 {
                     container.Column(column =>
@@ -58,7 +53,6 @@ public class PDFGenService : IPDFGenService
                     });
                 }
 
-                // Function to compose content
                 void ComposeContent(IContainer container)
                 {
                     container.Column(column =>
@@ -75,40 +69,56 @@ public class PDFGenService : IPDFGenService
 
                         column.Item().LineHorizontal(1).LineColor(Colors.Grey.Medium);
 
-                        // Invoice items section
                         if (data.InvoiceItems.Any())
                         {
                             column.Item().Table(table =>
                             {
                                 table.ColumnsDefinition(columns =>
                                 {
-                                    columns.ConstantColumn(25); // Колонка для індексу
-                                    columns.RelativeColumn(1);  // Колонка для типу елементу
+                                    columns.ConstantColumn(25);
+                                    columns.RelativeColumn(2);
+                                    columns.ConstantColumn(60);
+                                    columns.ConstantColumn(80);
+                                    columns.ConstantColumn(80);
                                 });
 
-                                // Заголовок таблиці
                                 table.Header(header =>
                                 {
                                     header.Cell().Element(CellStyle).Text("#").Bold();
                                     header.Cell().Element(CellStyle).Text("Item Description").Bold();
+                                    header.Cell().Element(CellStyle).Text("Quantity").Bold();
+                                    header.Cell().Element(CellStyle).Text("Price").Bold();
+                                    header.Cell().Element(CellStyle).Text("Total").Bold();
 
-                                    header.Cell().ColumnSpan(2).PaddingTop(5).BorderBottom(1).BorderColor(Colors.Black);
+                                    header.Cell().ColumnSpan(5).PaddingTop(5).BorderBottom(1).BorderColor(Colors.Black);
                                 });
 
-                                // Рядки таблиці
                                 var index = 1;
+                                decimal grandTotal = 0;
                                 foreach (var item in data.InvoiceItems)
                                 {
+                                    decimal itemTotal = item.Quantity * (decimal)item.Price;
+                                    grandTotal += itemTotal;
+
                                     table.Cell().Element(CellStyle).Text($"{index++}");
                                     table.Cell().Element(CellStyle).Text($"{item.ItemType}");
+                                    table.Cell().Element(CellStyle).Text($"{item.Quantity}");
+                                    table.Cell().Element(CellStyle).Text($"{item.Price:C}");
+                                    table.Cell().Element(CellStyle).Text($"{itemTotal:C}");
                                 }
+
+                                table.Footer(footer =>
+                                {
+                                    footer.Cell().ColumnSpan(4).AlignRight().Element(CellStyle).Text("Grand Total:").Bold();
+                                    footer.Cell().Element(CellStyle).Text($"{grandTotal:C}").Bold();
+                                });
                             });
                         }
-
                         else
                         {
                             column.Item().Text("No items available").Italic().FontColor(Colors.Grey.Medium);
                         }
+
                     });
                 }
             });
