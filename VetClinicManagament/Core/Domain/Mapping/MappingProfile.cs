@@ -53,7 +53,22 @@ public class MappingProfile : Profile
         CreateMap<TreatmentPlan, TreatmentPlanDto>().ReverseMap();
 
         // TreatmentPlanItem Mapping
-        CreateMap<TreatmentPlanItem, TreatmentPlanItemDto>().ReverseMap();
+        CreateMap<TreatmentPlanItem, TreatmentPlanItemDto>()
+            .ForMember(dest => dest.PlanId, opt => opt.MapFrom(src => src.PlanId))
+            .ForMember(dest => dest.ServiceId, opt => opt.MapFrom(src => src.ServiceId))
+            .ForMember(dest => dest.MedicalId, opt => opt.MapFrom(src => src.MedicalId))
+            .ForMember(dest => dest.ItemDescription, opt => opt.MapFrom(src => src.ItemDescription))
+            .ForMember(dest => dest.Dosage, opt => opt.MapFrom(src => src.Dosage))
+            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
+
+        // Reverse Mapping
+        CreateMap<TreatmentPlanItemDto, TreatmentPlanItem>()
+            .ForMember(dest => dest.PlanId, opt => opt.MapFrom(src => src.PlanId))
+            .ForMember(dest => dest.ServiceId, opt => opt.MapFrom(src => src.ServiceId))
+            .ForMember(dest => dest.MedicalId, opt => opt.MapFrom(src => src.MedicalId))
+            .ForMember(dest => dest.ItemDescription, opt => opt.MapFrom(src => src.ItemDescription))
+            .ForMember(dest => dest.Dosage, opt => opt.MapFrom(src => src.Dosage))
+            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
 
         // Medicals Mapping
         CreateMap<Medical, MedicalDto>().ReverseMap();
@@ -71,5 +86,8 @@ public class MappingProfile : Profile
             {
                 ItemType = item.ItemType
             }).ToList()));
+
+        // VisitDto -> VisitReportDto Mapping
+        CreateMap<VisitDto, VisitReportDto>();
     }
 }
