@@ -76,9 +76,12 @@ builder.Services.AddScoped<IInvoiceItemRepository, InvoiceItemRepository>();
 builder.Services.AddScoped<IVisitRepository, VisitRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
+builder.Services.AddScoped<ITreatmentPlanRepository, TreatmentPlanRepository>();
 builder.Services.AddScoped<ITreatmentPlanItemRepository, TreatmentPlanItemRepository>();
 builder.Services.AddScoped<IMedicalRepository, MedicalRepository>();
 builder.Services.AddScoped<IMedicalTypeRepository, MedicalTypeRepository>();
+builder.Services.AddScoped<IVisitReportRepository, VisitReportRepository>();
+
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 
 // Services
@@ -92,10 +95,13 @@ builder.Services.AddScoped<IInvoiceItemService, InvoiceItemService>();
 builder.Services.AddScoped<IVisitService, VisitService>();
 builder.Services.AddScoped<IProcedureService, ProcedureService>();
 builder.Services.AddScoped<IServiceTypeService, ServiceTypeService>();
+builder.Services.AddScoped<ITreatmentPlanService, TreatmentPlanService>();
 builder.Services.AddScoped<ITreatmentPlanItemService, TreatmentPlanItemService>();
 builder.Services.AddScoped<IMedicalService, MedicalService>();
 builder.Services.AddScoped<IMedicalTypeService, MedicalTypeService>();
 builder.Services.AddScoped< IPDFGenService, PDFGenService>();
+builder.Services.AddScoped< IVisitReportService, VisitReportService>();
+
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Email Settings
