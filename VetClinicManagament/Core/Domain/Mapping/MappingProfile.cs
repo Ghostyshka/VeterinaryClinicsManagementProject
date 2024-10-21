@@ -40,7 +40,11 @@ public class MappingProfile : Profile
         CreateMap<Visit, VisitDto>().ReverseMap();
 
         //Service Mapping
-        CreateMap<Service, ProcedureDto>().ReverseMap();
+        CreateMap<ProcedureDto, Service>()
+        .ForMember(dest => dest.ServiceId, opt => opt.MapFrom(src => src.ServiceId))
+        .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.ServicePrice))
+        .ForMember(dest => dest.MedicalId, opt => opt.MapFrom(src => src.MedicalId))
+        .ForMember(dest => dest.ServiceTypeId, opt => opt.MapFrom(src => src.ServiceTypeId));
 
         //ServiceType Mapping
         CreateMap<ServiceType, ServiceTypeDto>().ReverseMap();
