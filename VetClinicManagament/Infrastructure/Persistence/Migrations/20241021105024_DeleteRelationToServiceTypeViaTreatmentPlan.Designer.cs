@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence.Data;
@@ -11,9 +12,11 @@ using Persistence.Data;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20241021105024_DeleteRelationToServiceTypeViaTreatmentPlan")]
+    partial class DeleteRelationToServiceTypeViaTreatmentPlan
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,7 +67,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("SpeciesId");
 
-                    b.ToTable("Animals", (string)null);
+                    b.ToTable("Animals");
                 });
 
             modelBuilder.Entity("Domain.Entities.AnimalOwner", b =>
@@ -87,7 +90,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AnimalOwner", (string)null);
+                    b.ToTable("AnimalOwner");
                 });
 
             modelBuilder.Entity("Domain.Entities.Breed", b =>
@@ -105,7 +108,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("BreedId");
 
-                    b.ToTable("Breed", (string)null);
+                    b.ToTable("Breed");
                 });
 
             modelBuilder.Entity("Domain.Entities.Color", b =>
@@ -123,7 +126,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("ColorId");
 
-                    b.ToTable("Color", (string)null);
+                    b.ToTable("Color");
                 });
 
             modelBuilder.Entity("Domain.Entities.Employee", b =>
@@ -158,7 +161,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("EmployeeId");
 
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("Domain.Entities.Invoice", b =>
@@ -186,7 +189,7 @@ namespace Persistence.Migrations
                     b.HasIndex("VisitId")
                         .IsUnique();
 
-                    b.ToTable("Invoice", (string)null);
+                    b.ToTable("Invoice");
                 });
 
             modelBuilder.Entity("Domain.Entities.InvoiceItem", b =>
@@ -215,7 +218,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("InvoiceId");
 
-                    b.ToTable("InvoiceItem", (string)null);
+                    b.ToTable("InvoiceItem");
                 });
 
             modelBuilder.Entity("Domain.Entities.Medical", b =>
@@ -247,7 +250,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("MedicalTypeId");
 
-                    b.ToTable("Medical", (string)null);
+                    b.ToTable("Medical");
                 });
 
             modelBuilder.Entity("Domain.Entities.MedicalType", b =>
@@ -268,7 +271,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("TypeId");
 
-                    b.ToTable("MedicalType", (string)null);
+                    b.ToTable("MedicalType");
                 });
 
             modelBuilder.Entity("Domain.Entities.Service", b =>
@@ -294,7 +297,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("ServiceTypeId");
 
-                    b.ToTable("Service", (string)null);
+                    b.ToTable("Service");
                 });
 
             modelBuilder.Entity("Domain.Entities.ServiceType", b =>
@@ -312,7 +315,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("ServiceTypeId");
 
-                    b.ToTable("ServiceType", (string)null);
+                    b.ToTable("ServiceType");
                 });
 
             modelBuilder.Entity("Domain.Entities.Specie", b =>
@@ -330,7 +333,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("SpecieId");
 
-                    b.ToTable("Specie", (string)null);
+                    b.ToTable("Specie");
                 });
 
             modelBuilder.Entity("Domain.Entities.TreatmentPlan", b =>
@@ -360,7 +363,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("ServiceTypeId");
 
-                    b.ToTable("TreatmentPlan", (string)null);
+                    b.ToTable("TreatmentPlan");
                 });
 
             modelBuilder.Entity("Domain.Entities.TreatmentPlanItem", b =>
@@ -399,7 +402,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("TreatmentPlanItem", (string)null);
+                    b.ToTable("TreatmentPlanItem");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -440,7 +443,7 @@ namespace Persistence.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Domain.Entities.Visit", b =>
@@ -484,7 +487,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Visit", (string)null);
+                    b.ToTable("Visit");
                 });
 
             modelBuilder.Entity("Domain.Entities.Animal", b =>

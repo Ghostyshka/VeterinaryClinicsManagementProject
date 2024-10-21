@@ -17,7 +17,6 @@ public class TreatmentPlanRepository : ITreatmentPlanRepository
     public async Task<TreatmentPlan> GetByIdAsync(int id)
     {
         return await _dataContext.TreatmentPlan
-            .Include(tp => tp.ServiceType)
             .Include(tp => tp.TreatmentPlanItems)
             .FirstOrDefaultAsync(tp => tp.PlanId == id);
     }
@@ -25,7 +24,6 @@ public class TreatmentPlanRepository : ITreatmentPlanRepository
     public async Task<IEnumerable<TreatmentPlan>> GetAllAsync()
     {
         return await _dataContext.TreatmentPlan
-            .Include(tp => tp.ServiceType)
             .Include(tp => tp.TreatmentPlanItems)
             .ToListAsync();
     }

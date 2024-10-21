@@ -16,10 +16,8 @@ internal class TreatmentPlanConfiguration : IEntityTypeConfiguration<TreatmentPl
         builder.Property(tp => tp.EndOfTreatment)
                .IsRequired();
 
-        builder.HasOne(tp => tp.ServiceType)
-               .WithMany(st => st.TreatmentPlans)
-               .HasForeignKey(tp => tp.ServiceTypeId)
-               .IsRequired();
+        builder.Property(tp => tp.InClinic)
+            .IsRequired();
 
         builder.HasMany(tp => tp.TreatmentPlanItems)
                .WithOne(tpi => tpi.TreatmentPlan)
