@@ -15,19 +15,12 @@ public class VisitReportDto
     public int EmployeeId { get; set; }
     public string EmployeeFullName { get; set; }
     public string EmployeeEmail { get; set; }
+    public string EmployeePhoneNumber { get; set; }
 
-    public int? InvoiceId { get; set; }
-    public DateTime InvoiceCreatedAt { get; set; }
-    public InvoiceStatus InvoiceStatus { get; set; }
-    public List<InvoiceItemDto> InvoiceItems { get; set; }
+    public List<InvoiceDto> Invoices { get; set; }
 
-    public int? TreatmentId { get; set; }
-    public string TreatmentDescription { get; set; }
-    public DateTime StartOfTreatment { get; set; }
-    public DateTime EndOfTreatment { get; set; }
-    public bool InClinic { get; set; }
+    public List<TreatmentPlanDto> TreatmentPlans { get; set; }
 
-    public List<TreatmentPlanItemDto> TreatmentPlanItems { get; set; }
     public VisitStatus Status { get; set; }
     public string Description { get; set; }
 }
