@@ -131,6 +131,7 @@ public class PDFGenService : IPDFGenService
         return document.GeneratePdf();
     }
 
+    [Obsolete]
     public byte[] GenerateVisitPDF(VisitReportDto data)
     {
         if (data == null)
@@ -169,90 +170,106 @@ public class PDFGenService : IPDFGenService
                 {
                     container.Column(column =>
                     {
-                        column.Spacing(5);
-                        column.Item().Text($"Visit ID: {data.VisitId}").Bold();
-                        column.Item().Text($"Date: {data.DataOfVisit.ToShortDateString()}");
-                        column.Item().Text($"Client: {data.UserFullName}");
-                        column.Item().Text($"Veterinarian: {data.EmployeeFullName}");
-                        column.Item().Text($"Status: {data.Status}");
-                        column.Item().Text($"Description: {data.Description}");
+                        column.Spacing(10);
 
-                        column.Item().LineHorizontal(1).LineColor(Colors.Grey.Medium);
-
-                        if (data.InvoiceId.HasValue)
+                        // Visit Details Table
+                        column.Item().Text("Visit Details").Bold().FontSize(16);
+                        column.Item().Table(table =>
                         {
-                            column.Item().Text("Invoice Details:").Bold();
-                            column.Item().Text($"Invoice ID: {data.InvoiceId}");
-                            column.Item().Text($"Created At: {data.InvoiceCreatedAt.ToShortDateString()}");
-                            column.Item().Text($"Status: {data.InvoiceStatus}");
-
-                            if (data.InvoiceItems != null && data.InvoiceItems.Any())
+                            table.ColumnsDefinition(columns =>
                             {
-                                column.Item().Text("Invoice Items:").Bold();
+                                columns.RelativeColumn(1);
+                                columns.RelativeColumn(2);
+                            });
+
+                            table.Header(header =>
+                            {
+                                header.Cell().Text("Field").Bold();
+                                header.Cell().Text("Value").Bold();
+                            });
+
+                            table.Cell().Text("Visit ID");
+                            table.Cell().Text(data.VisitId.ToString());
+
+                            table.Cell().Text("Date");
+                            table.Cell().Text(data.DataOfVisit.ToShortDateString());
+
+                            table.Cell().Text("Client (Phone)");
+                            table.Cell().Text($"{data.UserFullName} ({data.UserPhoneNumber})");
+
+                            table.Cell().Text("Veterinarian (Phone)");
+                            table.Cell().Text($"{data.EmployeeFullName} ({data.EmployeePhoneNumber})");
+
+                            table.Cell().Text("Status");
+                            table.Cell().Text(data.Status.ToString());
+
+                            table.Cell().Text("Description");
+                            table.Cell().Text(data.Description);
+                        });
+
+                        // Invoice Details Table (if any)
+                        if (data.Invoices != null && data.Invoices.Any())
+                        {
+                            column.Item().Text("Invoice Details").Bold().FontSize(16);
+                            foreach (var invoice in data.Invoices)
+                            {
                                 column.Item().Table(table =>
                                 {
                                     table.ColumnsDefinition(columns =>
                                     {
                                         columns.RelativeColumn(1);
-                                        columns.RelativeColumn(1);
-                                        columns.RelativeColumn(1);
+                                        columns.RelativeColumn(2);
                                     });
 
                                     table.Header(header =>
                                     {
-                                        header.Cell().Text("Item Type").Bold();
-                                        header.Cell().Text("Quantity").Bold();
-                                        header.Cell().Text("Price").Bold();
+                                        header.Cell().Text("Field").Bold();
+                                        header.Cell().Text("Value").Bold();
                                     });
 
-                                    foreach (var item in data.InvoiceItems)
-                                    {
-                                        table.Cell().Text(item.ItemType);
-                                        table.Cell().Text(item.Quantity.ToString());
-                                        table.Cell().Text(item.Price.ToString("C"));
-                                    }
+                                    table.Cell().Text("Invoice ID");
+                                    table.Cell().Text(invoice.InvoiceId.ToString());
+
+                                    table.Cell().Text("Created At");
+                                    table.Cell().Text(invoice.CreatedAt.ToShortDateString());
+
+                                    table.Cell().Text("Status");
+                                    table.Cell().Text(invoice.InvoiceStatus.ToString());
                                 });
                             }
                         }
 
-                        column.Item().LineHorizontal(1).LineColor(Colors.Grey.Medium);
-
-                        if (data.TreatmentId.HasValue && data.TreatmentDescription != null)
+                        // Treatment Plans Table (if any)
+                        if (data.TreatmentPlans != null && data.TreatmentPlans.Any())
                         {
-                            column.Item().Text("Treatment Plan:").Bold();
-                            column.Item().Text($"Treatment ID: {data.TreatmentId}");
-                            column.Item().Text($"Description: {data.TreatmentDescription}");
-                            column.Item().Text($"Start Date: {data.StartOfTreatment.ToShortDateString()}");
-                            column.Item().Text($"End Date: {data.EndOfTreatment.ToShortDateString()}");
-                            column.Item().Text($"In Clinic: {(data.InClinic ? "Yes" : "No")}");
-
-                            if (data.TreatmentPlanItems != null && data.TreatmentPlanItems.Any())
+                            column.Item().Text("Treatment Plans").Bold().FontSize(16);
+                            foreach (var plan in data.TreatmentPlans)
                             {
                                 column.Item().Table(table =>
                                 {
                                     table.ColumnsDefinition(columns =>
                                     {
                                         columns.RelativeColumn(1);
-                                        columns.RelativeColumn(1);
-                                        columns.RelativeColumn(1);
-                                        columns.RelativeColumn(1);
+                                        columns.RelativeColumn(2);
                                     });
 
                                     table.Header(header =>
                                     {
-                                        header.Cell().Text("Service").Bold();
-                                        header.Cell().Text("Medical").Bold();
-                                        header.Cell().Text("Dosage").Bold();
-                                        header.Cell().Text("Quantity").Bold();
+                                        header.Cell().Text("Field").Bold();
+                                        header.Cell().Text("Value").Bold();
                                     });
 
-                                    foreach (var item in data.TreatmentPlanItems)
-                                    {
-                                        table.Cell().Text(item.ServiceId.ToString());
-                                        table.Cell().Text(item.MedicalId.ToString());
-                                        table.Cell().Text(item.Dosage);
-                                        table.Cell().Text(item.Quantity.ToString());
-                                    }
+                                    table.Cell().Text("Plan ID");
+                                    table.Cell().Text(plan.PlanId.ToString());
+
+                                    table.Cell().Text("Start Date");
+                                    table.Cell().Text(plan.StartOfTreatment.ToShortDateString());
+
+                                    table.Cell().Text("End Date");
+                                    table.Cell().Text(plan.EndOfTreatment.ToShortDateString());
+
+                                    table.Cell().Text("In Clinic");
+                                    table.Cell().Text(plan.InClinic ? "Yes" : "No");
                                 });
                             }
                         }
