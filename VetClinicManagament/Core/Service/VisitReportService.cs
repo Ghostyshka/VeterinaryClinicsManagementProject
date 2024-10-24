@@ -30,23 +30,43 @@ public class VisitReportService : IVisitReportService
             EmployeeId = visit.EmployeeId,
             EmployeeFullName = visit.Employee.EmployeeFullName,
             EmployeeEmail = visit.Employee.Email,
-            InvoiceId = visit.Invoice?.InvoiceId,
-            InvoiceCreatedAt = visit.Invoice?.CreatedAt ?? DateTime.MinValue,
-            InvoiceStatus = (InvoiceStatus)(visit.Invoice?.InvoiceStatus),
-            InvoiceItems = visit.Invoice?.InvoiceItems.Select(ii => new InvoiceItemDto
+            EmployeePhoneNumber = visit.Employee.PhoneNumber,
+
+            Invoices = visit.Invoice?.Select(inv => new InvoiceDto
             {
-            }).ToList() ?? new List<InvoiceItemDto>(),
-            StartOfTreatment = visit.TreatmentPlan?.StartOfTreatment ?? DateTime.MinValue,
-            EndOfTreatment = visit.TreatmentPlan?.EndOfTreatment ?? DateTime.MinValue,
-            InClinic = visit.TreatmentPlan?.InClinic ?? false,
-            TreatmentPlanItems = visit.TreatmentPlan?.TreatmentPlanItems.Select(tpi => new TreatmentPlanItemDto
+                InvoiceId = inv.InvoiceId,
+                CreatedAt = inv.CreatedAt,
+                InvoiceStatus = inv.InvoiceStatus,
+                InvoiceItems = inv.InvoiceItems?.Select(ii => new InvoiceItemDto
+                {
+                    InvoiceId = ii.InvoiceId,
+                    ItemType = ii.ItemType,
+                    Quantity = ii.Quantity,
+                    Price = ii.Price,
+                }).ToList() ?? new List<InvoiceItemDto>()
+            }).ToList() ?? new List<InvoiceDto>(),
+
+            TreatmentPlans = visit.TreatmentPlan?.Select(tp => new TreatmentPlanDto
             {
-            }).ToList() ?? new List<TreatmentPlanItemDto>(),
+                PlanId = tp.PlanId,
+                StartOfTreatment = tp.StartOfTreatment,
+                EndOfTreatment = tp.EndOfTreatment,
+                InClinic = tp.InClinic,
+                TreatmentPlanItems = tp.TreatmentPlanItems?.Select(tpi => new TreatmentPlanItemDto
+                {
+                    PlanId = tpi.PlanId,
+                    ServiceId = tpi.ServiceId,
+                    MedicalId = tpi.MedicalId,
+                    ItemDescription = tpi.ItemDescription,
+                    Dosage = tpi.Dosage,
+                    Quantity = tpi.Quantity,
+                }).ToList() ?? new List<TreatmentPlanItemDto>()
+            }).ToList() ?? new List<TreatmentPlanDto>(),
+
             Status = visit.Status,
             Description = visit.Description
         };
 
         return dto;
     }
-
 }
