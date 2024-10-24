@@ -35,14 +35,14 @@ internal class VisitConfiguration : IEntityTypeConfiguration<Visit>
             .HasForeignKey(v => v.EmployeeId)
             .IsRequired();
 
-        builder.HasOne(v => v.Invoice)
+        builder.HasMany(v => v.Invoice)
             .WithOne(i => i.Visit)
-            .HasForeignKey<Invoice>(i => i.VisitId)
+            .HasForeignKey(i => i.VisitId)
             .OnDelete(DeleteBehavior.SetNull);
 
-        builder.HasOne(v => v.TreatmentPlan)
-            .WithMany(t => t.Visit)
-            .HasForeignKey(v => v.TreatmentId)
-            .OnDelete(DeleteBehavior.SetNull);
+        builder.HasMany(v => v.TreatmentPlan)
+           .WithOne(tp => tp.Visit)
+           .HasForeignKey(tp => tp.VisitId)
+           .OnDelete(DeleteBehavior.SetNull);
     }
 }

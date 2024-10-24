@@ -64,7 +64,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("SpeciesId");
 
-                    b.ToTable("Animals", (string)null);
+                    b.ToTable("Animals");
                 });
 
             modelBuilder.Entity("Domain.Entities.AnimalOwner", b =>
@@ -87,7 +87,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AnimalOwner", (string)null);
+                    b.ToTable("AnimalOwner");
                 });
 
             modelBuilder.Entity("Domain.Entities.Breed", b =>
@@ -105,7 +105,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("BreedId");
 
-                    b.ToTable("Breed", (string)null);
+                    b.ToTable("Breed");
                 });
 
             modelBuilder.Entity("Domain.Entities.Color", b =>
@@ -123,7 +123,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("ColorId");
 
-                    b.ToTable("Color", (string)null);
+                    b.ToTable("Color");
                 });
 
             modelBuilder.Entity("Domain.Entities.Employee", b =>
@@ -158,7 +158,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("EmployeeId");
 
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("Domain.Entities.Invoice", b =>
@@ -183,10 +183,9 @@ namespace Persistence.Migrations
 
                     b.HasKey("InvoiceId");
 
-                    b.HasIndex("VisitId")
-                        .IsUnique();
+                    b.HasIndex("VisitId");
 
-                    b.ToTable("Invoice", (string)null);
+                    b.ToTable("Invoice");
                 });
 
             modelBuilder.Entity("Domain.Entities.InvoiceItem", b =>
@@ -215,7 +214,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("InvoiceId");
 
-                    b.ToTable("InvoiceItem", (string)null);
+                    b.ToTable("InvoiceItem");
                 });
 
             modelBuilder.Entity("Domain.Entities.Medical", b =>
@@ -247,7 +246,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("MedicalTypeId");
 
-                    b.ToTable("Medical", (string)null);
+                    b.ToTable("Medical");
                 });
 
             modelBuilder.Entity("Domain.Entities.MedicalType", b =>
@@ -268,7 +267,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("TypeId");
 
-                    b.ToTable("MedicalType", (string)null);
+                    b.ToTable("MedicalType");
                 });
 
             modelBuilder.Entity("Domain.Entities.Service", b =>
@@ -294,7 +293,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("ServiceTypeId");
 
-                    b.ToTable("Service", (string)null);
+                    b.ToTable("Service");
                 });
 
             modelBuilder.Entity("Domain.Entities.ServiceType", b =>
@@ -312,7 +311,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("ServiceTypeId");
 
-                    b.ToTable("ServiceType", (string)null);
+                    b.ToTable("ServiceType");
                 });
 
             modelBuilder.Entity("Domain.Entities.Specie", b =>
@@ -330,7 +329,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("SpecieId");
 
-                    b.ToTable("Specie", (string)null);
+                    b.ToTable("Specie");
                 });
 
             modelBuilder.Entity("Domain.Entities.TreatmentPlan", b =>
@@ -353,14 +352,16 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("StartOfTreatment")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("TreatmentId")
+                    b.Property<int>("VisitId")
                         .HasColumnType("integer");
 
                     b.HasKey("PlanId");
 
                     b.HasIndex("ServiceTypeId");
 
-                    b.ToTable("TreatmentPlan", (string)null);
+                    b.HasIndex("VisitId");
+
+                    b.ToTable("TreatmentPlan");
                 });
 
             modelBuilder.Entity("Domain.Entities.TreatmentPlanItem", b =>
@@ -399,7 +400,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("TreatmentPlanItem", (string)null);
+                    b.ToTable("TreatmentPlanItem");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -440,7 +441,7 @@ namespace Persistence.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Domain.Entities.Visit", b =>
@@ -468,9 +469,6 @@ namespace Persistence.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("TreatmentId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
@@ -480,11 +478,9 @@ namespace Persistence.Migrations
 
                     b.HasIndex("InvoiceId");
 
-                    b.HasIndex("TreatmentId");
-
                     b.HasIndex("UserId");
 
-                    b.ToTable("Visit", (string)null);
+                    b.ToTable("Visit");
                 });
 
             modelBuilder.Entity("Domain.Entities.Animal", b =>
@@ -536,8 +532,8 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Invoice", b =>
                 {
                     b.HasOne("Domain.Entities.Visit", "Visit")
-                        .WithOne("Invoice")
-                        .HasForeignKey("Domain.Entities.Invoice", "VisitId")
+                        .WithMany("Invoice")
+                        .HasForeignKey("VisitId")
                         .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
@@ -590,6 +586,14 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Entities.ServiceType", null)
                         .WithMany("TreatmentPlans")
                         .HasForeignKey("ServiceTypeId");
+
+                    b.HasOne("Domain.Entities.Visit", "Visit")
+                        .WithMany("TreatmentPlan")
+                        .HasForeignKey("VisitId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.Navigation("Visit");
                 });
 
             modelBuilder.Entity("Domain.Entities.TreatmentPlanItem", b =>
@@ -631,11 +635,6 @@ namespace Persistence.Migrations
                         .WithMany("Visits")
                         .HasForeignKey("InvoiceId");
 
-                    b.HasOne("Domain.Entities.TreatmentPlan", "TreatmentPlan")
-                        .WithMany("Visit")
-                        .HasForeignKey("TreatmentId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("Visits")
                         .HasForeignKey("UserId")
@@ -643,8 +642,6 @@ namespace Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Employee");
-
-                    b.Navigation("TreatmentPlan");
 
                     b.Navigation("User");
                 });
@@ -706,8 +703,6 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.TreatmentPlan", b =>
                 {
                     b.Navigation("TreatmentPlanItems");
-
-                    b.Navigation("Visit");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -719,8 +714,9 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Visit", b =>
                 {
-                    b.Navigation("Invoice")
-                        .IsRequired();
+                    b.Navigation("Invoice");
+
+                    b.Navigation("TreatmentPlan");
                 });
 #pragma warning restore 612, 618
         }

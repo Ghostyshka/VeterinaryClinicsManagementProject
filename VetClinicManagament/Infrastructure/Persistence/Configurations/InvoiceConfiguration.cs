@@ -21,5 +21,10 @@ internal class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
 
         builder.Property(i => i.InvoiceStatus)
             .IsRequired();
+
+        builder.HasOne(i => i.Visit)
+       .WithMany(v => v.Invoice)
+       .HasForeignKey(i => i.VisitId)
+       .OnDelete(DeleteBehavior.SetNull);
     }
 }
