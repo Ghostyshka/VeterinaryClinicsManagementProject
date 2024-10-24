@@ -2,6 +2,7 @@
 
 public class VisitDto
 {
+    public int VisitId { get; set; }
     public DateTime DataOfVisit { get; set; }
     public int UserId { get; set; }
     public int EmployeeId { get; set; }
