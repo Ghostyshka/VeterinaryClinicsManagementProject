@@ -3,6 +3,7 @@ using Contracts;
 using Domain.Entities;
 using Domain.Models.Dtos;
 using Domain.Repositories;
+using Persistence.Repositories;
 
 namespace Service;
 
@@ -33,6 +34,10 @@ public class TreatmentPlanService : ITreatmentPlanService
     {
         var treatmentPlan = _mapper.Map<TreatmentPlan>(treatmentPlanDto);
         await _treatmentPlanRepository.AddAsync(treatmentPlan);
+        foreach (var item in treatmentPlan.TreatmentPlanItems)
+        {
+            item.PlanId = treatmentPlan.PlanId;
+        }
         return _mapper.Map<TreatmentPlanDto>(treatmentPlan);
     }
 
