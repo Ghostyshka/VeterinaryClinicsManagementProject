@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence.Data;
@@ -11,9 +12,11 @@ using Persistence.Data;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20241021105024_DeleteRelationToServiceTypeViaTreatmentPlan")]
+    partial class DeleteRelationToServiceTypeViaTreatmentPlan
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,7 +186,8 @@ namespace Persistence.Migrations
 
                     b.HasKey("InvoiceId");
 
-                    b.HasIndex("VisitId");
+                    b.HasIndex("VisitId")
+                        .IsUnique();
 
                     b.ToTable("Invoice");
                 });
@@ -352,14 +356,12 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("StartOfTreatment")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("VisitId")
+                    b.Property<int>("TreatmentId")
                         .HasColumnType("integer");
 
                     b.HasKey("PlanId");
 
                     b.HasIndex("ServiceTypeId");
-
-                    b.HasIndex("VisitId");
 
                     b.ToTable("TreatmentPlan");
                 });
@@ -469,6 +471,9 @@ namespace Persistence.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("TreatmentId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
@@ -477,6 +482,8 @@ namespace Persistence.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.HasIndex("InvoiceId");
+
+                    b.HasIndex("TreatmentId");
 
                     b.HasIndex("UserId");
 
@@ -532,8 +539,8 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Invoice", b =>
                 {
                     b.HasOne("Domain.Entities.Visit", "Visit")
-                        .WithMany("Invoice")
-                        .HasForeignKey("VisitId")
+                        .WithOne("Invoice")
+                        .HasForeignKey("Domain.Entities.Invoice", "VisitId")
                         .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
@@ -586,14 +593,6 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Entities.ServiceType", null)
                         .WithMany("TreatmentPlans")
                         .HasForeignKey("ServiceTypeId");
-
-                    b.HasOne("Domain.Entities.Visit", "Visit")
-                        .WithMany("TreatmentPlan")
-                        .HasForeignKey("VisitId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
-
-                    b.Navigation("Visit");
                 });
 
             modelBuilder.Entity("Domain.Entities.TreatmentPlanItem", b =>
@@ -635,6 +634,11 @@ namespace Persistence.Migrations
                         .WithMany("Visits")
                         .HasForeignKey("InvoiceId");
 
+                    b.HasOne("Domain.Entities.TreatmentPlan", "TreatmentPlan")
+                        .WithMany("Visit")
+                        .HasForeignKey("TreatmentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("Visits")
                         .HasForeignKey("UserId")
@@ -642,6 +646,8 @@ namespace Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Employee");
+
+                    b.Navigation("TreatmentPlan");
 
                     b.Navigation("User");
                 });
@@ -703,6 +709,8 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.TreatmentPlan", b =>
                 {
                     b.Navigation("TreatmentPlanItems");
+
+                    b.Navigation("Visit");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -714,9 +722,8 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Visit", b =>
                 {
-                    b.Navigation("Invoice");
-
-                    b.Navigation("TreatmentPlan");
+                    b.Navigation("Invoice")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence.Data;
@@ -11,9 +12,11 @@ using Persistence.Data;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20241022105347_UpdateRelationInVisit")]
+    partial class UpdateRelationInVisit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,7 +186,8 @@ namespace Persistence.Migrations
 
                     b.HasKey("InvoiceId");
 
-                    b.HasIndex("VisitId");
+                    b.HasIndex("VisitId")
+                        .IsUnique();
 
                     b.ToTable("Invoice");
                 });
@@ -466,6 +470,9 @@ namespace Persistence.Migrations
                     b.Property<int?>("InvoiceId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("PlanId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
@@ -532,8 +539,8 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Invoice", b =>
                 {
                     b.HasOne("Domain.Entities.Visit", "Visit")
-                        .WithMany("Invoice")
-                        .HasForeignKey("VisitId")
+                        .WithOne("Invoice")
+                        .HasForeignKey("Domain.Entities.Invoice", "VisitId")
                         .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
@@ -714,7 +721,8 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Visit", b =>
                 {
-                    b.Navigation("Invoice");
+                    b.Navigation("Invoice")
+                        .IsRequired();
 
                     b.Navigation("TreatmentPlan");
                 });

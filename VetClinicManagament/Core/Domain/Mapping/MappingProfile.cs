@@ -40,7 +40,11 @@ public class MappingProfile : Profile
         CreateMap<Visit, VisitDto>().ReverseMap();
 
         //Service Mapping
-        CreateMap<Service, ProcedureDto>().ReverseMap();
+        CreateMap<ProcedureDto, Service>()
+        .ForMember(dest => dest.ServiceId, opt => opt.MapFrom(src => src.ServiceId))
+        .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.ServicePrice))
+        .ForMember(dest => dest.MedicalId, opt => opt.MapFrom(src => src.MedicalId))
+        .ForMember(dest => dest.ServiceTypeId, opt => opt.MapFrom(src => src.ServiceTypeId));
 
         //ServiceType Mapping
         CreateMap<ServiceType, ServiceTypeDto>().ReverseMap();
@@ -49,12 +53,41 @@ public class MappingProfile : Profile
         CreateMap<TreatmentPlan, TreatmentPlanDto>().ReverseMap();
 
         // TreatmentPlanItem Mapping
-        CreateMap<TreatmentPlanItem, TreatmentPlanItemDto>().ReverseMap();
+        CreateMap<TreatmentPlanItem, TreatmentPlanItemDto>()
+            .ForMember(dest => dest.PlanId, opt => opt.MapFrom(src => src.PlanId))
+            .ForMember(dest => dest.ServiceId, opt => opt.MapFrom(src => src.ServiceId))
+            .ForMember(dest => dest.MedicalId, opt => opt.MapFrom(src => src.MedicalId))
+            .ForMember(dest => dest.ItemDescription, opt => opt.MapFrom(src => src.ItemDescription))
+            .ForMember(dest => dest.Dosage, opt => opt.MapFrom(src => src.Dosage))
+            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
+
+        // Reverse Mapping
+        CreateMap<TreatmentPlanItemDto, TreatmentPlanItem>()
+            .ForMember(dest => dest.PlanId, opt => opt.MapFrom(src => src.PlanId))
+            .ForMember(dest => dest.ServiceId, opt => opt.MapFrom(src => src.ServiceId))
+            .ForMember(dest => dest.MedicalId, opt => opt.MapFrom(src => src.MedicalId))
+            .ForMember(dest => dest.ItemDescription, opt => opt.MapFrom(src => src.ItemDescription))
+            .ForMember(dest => dest.Dosage, opt => opt.MapFrom(src => src.Dosage))
+            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
 
         // Medicals Mapping
         CreateMap<Medical, MedicalDto>().ReverseMap();
 
         // MedicalType Mapping
         CreateMap<MedicalType, MedicalTypeDto>().ReverseMap();
+
+        // Invoice -> InvoiceVisitDetailsDto Mapping
+        CreateMap<Invoice, InvoiceVisitDetailsDto>()
+            .ForMember(dest => dest.VisitId, opt => opt.MapFrom(src => src.VisitId))
+            .ForMember(dest => dest.VisitDate, opt => opt.MapFrom(src => src.Visit.DataOfVisit))
+            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Visit.User.FullName))
+            .ForMember(dest => dest.EmployeeName, opt => opt.MapFrom(src => src.Visit.Employee.EmployeeFullName))
+            .ForMember(dest => dest.InvoiceItems, opt => opt.MapFrom(src => src.InvoiceItems.Select(item => new InvoiceItemDto
+            {
+                ItemType = item.ItemType
+            }).ToList()));
+
+        // VisitDto -> VisitReportDto Mapping
+        CreateMap<VisitDto, VisitReportDto>();
     }
 }

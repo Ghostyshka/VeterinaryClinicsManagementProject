@@ -21,7 +21,14 @@ public class VisitRepository : IVisitRepository
 
     public async Task<Visit> GetByIdAsync(int id)
     {
-        return await _dataContext.Visit.FirstOrDefaultAsync(v => v.VisitId == id);
+        return await _dataContext.Visit
+            .Include(v => v.User)
+            .Include(v => v.Employee)
+            .Include(v => v.Invoice)
+            .ThenInclude(i => i.InvoiceItems)
+            .Include(v => v.TreatmentPlan)
+            .ThenInclude(tp => tp.TreatmentPlanItems)
+            .FirstOrDefaultAsync(v => v.VisitId == id);
     }
 
     public async Task AddAsync(Visit visit)

@@ -13,12 +13,9 @@ public class Visit
     public int EmployeeId { get; set; }
     public Employee Employee { get; set; }
 
-    public int? InvoiceId { get; set; }
-    public Invoice Invoice { get; set; }
-
-    public int? TreatmentId { get; set; }
-    public TreatmentPlan TreatmentPlan { get; set; }
-
     public VisitStatus Status { get; set; }
     public string Description { get; set; }
+
+    public ICollection<TreatmentPlan> TreatmentPlan { get; set; }
+    public ICollection<Invoice> Invoice { get; set; }
 }

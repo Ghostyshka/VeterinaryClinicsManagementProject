@@ -51,4 +51,9 @@ public class InvoiceService : IInvoiceService
     {
         await _repositoryManager.InvoiceRepository.DeleteInvoiceAsync(id);
     }
+
+    public async Task<InvoiceVisitDetailsDto> GetInvoiceDetailsAsync(int invoiceId)
+    {
+        return await _repositoryManager.InvoiceRepository.GetInvoiceDetailsAsync(invoiceId);
+    }
 }
